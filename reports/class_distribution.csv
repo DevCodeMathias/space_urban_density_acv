@@ -1,0 +1,10 @@
+split,visual_density_class,images
+test,alta,59
+test,baixa,44
+test,media,77
+train,alta,276
+train,baixa,203
+train,media,361
+validation,alta,59
+validation,baixa,43
+validation,media,78

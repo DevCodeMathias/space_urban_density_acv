@@ -1,0 +1,11 @@
+{
+    "model_name": "urban_cnn_v2",
+    "trainable_parameters": 300579,
+    "best_validation_loss": 0.5377997173203363,
+    "best_validation_accuracy": 0.85,
+    "final_train_accuracy": 0.8333333333333334,
+    "final_validation_accuracy": 0.8055555555555556,
+    "test_accuracy": 0.8277777777777777,
+    "test_loss": 0.5152331266138289,
+    "misclassified_examples": 31
+}

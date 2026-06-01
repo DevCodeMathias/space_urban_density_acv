@@ -1,0 +1,32 @@
+{
+    "model_name": "urban_meta_stack_v1",
+    "base_models": [
+        "urban_cnn_v1",
+        "urban_cnn_v2",
+        "urban_cnn_v3"
+    ],
+    "feature_columns": [
+        "urban_cnn_v1_p0",
+        "urban_cnn_v1_p1",
+        "urban_cnn_v1_p2",
+        "urban_cnn_v2_p0",
+        "urban_cnn_v2_p1",
+        "urban_cnn_v2_p2",
+        "urban_cnn_v3_p0",
+        "urban_cnn_v3_p1",
+        "urban_cnn_v3_p2",
+        "mean_red",
+        "mean_green",
+        "mean_blue",
+        "brightness",
+        "contrast",
+        "vegetation_index",
+        "water_index",
+        "built_up_proxy",
+        "texture",
+        "grayness"
+    ],
+    "texture_override_threshold": 15.29023230820106,
+    "texture_override_source_class": 2,
+    "texture_override_target_class": 1
+}

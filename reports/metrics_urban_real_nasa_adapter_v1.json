@@ -1,0 +1,30 @@
+{
+    "model_name": "urban_real_nasa_adapter_v1",
+    "benchmark_type": "real_nasa_holdout",
+    "estimator_name": "svc_rbf",
+    "train_samples": 18,
+    "test_samples": 9,
+    "test_accuracy": 0.7777777777777778,
+    "random_state": 9,
+    "feature_columns": [
+        "urban_cnn_v1_p0",
+        "urban_cnn_v1_p1",
+        "urban_cnn_v1_p2",
+        "urban_cnn_v2_p0",
+        "urban_cnn_v2_p1",
+        "urban_cnn_v2_p2",
+        "urban_cnn_v3_p0",
+        "urban_cnn_v3_p1",
+        "urban_cnn_v3_p2",
+        "mean_red",
+        "mean_green",
+        "mean_blue",
+        "brightness",
+        "contrast",
+        "vegetation_index",
+        "water_index",
+        "built_up_proxy",
+        "texture",
+        "grayness"
+    ]
+}

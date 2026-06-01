@@ -1,0 +1,12 @@
+{
+    "best_model": "urban_meta_stack_v1",
+    "target_task": "Classificacao da densidade urbana visual em imagens de satelite",
+    "classes": [
+        "baixa",
+        "media",
+        "alta"
+    ],
+    "test_accuracy": 0.8833333333333333,
+    "best_validation_accuracy": 0.8944444444444445,
+    "device_used": "cpu"
+}

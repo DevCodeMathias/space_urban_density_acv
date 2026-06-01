@@ -1,0 +1,29 @@
+{
+    "model_name": "urban_real_nasa_adapter_v1",
+    "feature_columns": [
+        "urban_cnn_v1_p0",
+        "urban_cnn_v1_p1",
+        "urban_cnn_v1_p2",
+        "urban_cnn_v2_p0",
+        "urban_cnn_v2_p1",
+        "urban_cnn_v2_p2",
+        "urban_cnn_v3_p0",
+        "urban_cnn_v3_p1",
+        "urban_cnn_v3_p2",
+        "mean_red",
+        "mean_green",
+        "mean_blue",
+        "brightness",
+        "contrast",
+        "vegetation_index",
+        "water_index",
+        "built_up_proxy",
+        "texture",
+        "grayness"
+    ],
+    "dataset_path": "C:\\repo\\Fiap\\global\\space_urban_density_acv\\reports\\real_domain_dataset.csv",
+    "metrics_path": "C:\\repo\\Fiap\\global\\space_urban_density_acv\\reports\\metrics_urban_real_nasa_adapter_v1.json",
+    "random_state": 9,
+    "estimator_name": "svc_rbf",
+    "test_accuracy": 0.7777777777777778
+}

@@ -1,0 +1,11 @@
+{
+    "model_name": "urban_meta_stack_v1",
+    "trainable_parameters": 60,
+    "best_validation_loss": null,
+    "best_validation_accuracy": 0.8944444444444445,
+    "final_train_accuracy": null,
+    "final_validation_accuracy": 0.8944444444444445,
+    "test_accuracy": 0.8833333333333333,
+    "test_loss": null,
+    "misclassified_examples": 21
+}
