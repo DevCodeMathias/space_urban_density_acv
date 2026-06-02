@@ -58,8 +58,7 @@ jobs:
               assert count_parameters(model) > 0
 
           stats = load_normalization_stats("reports/normalization_stats.json")
-          assert "mean" in stats and "std" in stats
-          assert len(stats["mean"]) == 3 and len(stats["std"]) == 3
+          assert len(stats.mean) == 3 and len(stats.std) == 3
           print("Smoke tests passed with torch", torch.__version__)
           PY
 
