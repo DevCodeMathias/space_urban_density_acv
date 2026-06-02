@@ -1,10 +1,10 @@
 split,visual_density_class,images
-test,alta,2
+test,alta,3
 test,baixa,3
-test,media,2
-train,alta,11
-train,baixa,10
-train,media,10
-validation,alta,2
-validation,baixa,2
+test,media,3
+train,alta,9
+train,baixa,9
+train,media,9
+validation,alta,3
+validation,baixa,3
 validation,media,3

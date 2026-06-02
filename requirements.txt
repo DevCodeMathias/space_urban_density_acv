@@ -4,6 +4,7 @@ torchvision==0.20.1+cpu
 pandas==2.2.2
 numpy==1.26.4
 scikit-learn==1.5.1
+joblib==1.4.2
 matplotlib==3.9.0
 pillow==10.4.0
 streamlit==1.37.1

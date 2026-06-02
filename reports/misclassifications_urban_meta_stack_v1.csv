@@ -1,5 +1,5 @@
 file_name,true_label,predicted_label
-cerrado_2025-05-01.png,baixa,media
 melbourne_2025-05-01.png,media,alta
+porto_alegre_2025-05-01.png,media,baixa
 bolivia_rural_2025-05-01.png,baixa,media
-pantanal_2025-05-01.png,baixa,media
+fortaleza_2025-05-01.png,media,baixa

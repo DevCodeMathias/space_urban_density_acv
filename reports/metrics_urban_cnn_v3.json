@@ -1,11 +1,11 @@
 {
     "model_name": "urban_cnn_v3",
     "trainable_parameters": 1944867,
-    "best_validation_loss": 1.030142903327942,
-    "best_validation_accuracy": 0.7142857142857143,
-    "final_train_accuracy": 0.9032258064516129,
-    "final_validation_accuracy": 0.2857142857142857,
-    "test_accuracy": 0.42857142857142855,
-    "test_loss": 1.0581750869750977,
-    "misclassified_examples": 4
+    "best_validation_loss": 1.0768303871154785,
+    "best_validation_accuracy": 0.4444444444444444,
+    "final_train_accuracy": 0.8888888888888888,
+    "final_validation_accuracy": 0.3333333333333333,
+    "test_accuracy": 0.4444444444444444,
+    "test_loss": 0.9392192363739014,
+    "misclassified_examples": 5
 }
