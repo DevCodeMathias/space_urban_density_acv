@@ -160,7 +160,7 @@ def prepare_dataset() -> pd.DataFrame:
 
     train_frame, temp_frame = train_test_split(
         metadata,
-        test_size=0.30,
+        test_size=0.40,
         random_state=RANDOM_SEED,
         stratify=metadata[LABEL_COLUMN],
     )

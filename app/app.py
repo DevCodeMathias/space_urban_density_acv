@@ -137,6 +137,7 @@ with right_column:
     st.subheader("Comparacao entre arquiteturas")
     st.dataframe(comparison, use_container_width=True)
     st.metric("Melhor modelo", best_model_name)
+    st.metric("Melhor acuracia de validacao", f"{metadata['best_validation_accuracy'] * 100:.2f}%")
     st.metric("Acuracia em teste", f"{metadata['test_accuracy'] * 100:.2f}%")
 
 st.subheader("Amostras do dataset")

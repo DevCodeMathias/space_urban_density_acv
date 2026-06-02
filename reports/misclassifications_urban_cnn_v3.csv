@@ -1,5 +1,6 @@
 file_name,true_label,predicted_label,confidence,image_path
-recife_2025-05-01.png,media,baixa,0.3576401174068451,data\raw_images\recife_2025-05-01.png
-bolivia_rural_2025-05-01.png,baixa,media,0.35394102334976196,data\raw_images\bolivia_rural_2025-05-01.png
-shanghai_pudong_2025-05-01.png,alta,media,0.351864218711853,data\raw_images\shanghai_pudong_2025-05-01.png
-london_city_2025-05-01.png,alta,media,0.34555909037590027,data\raw_images\london_city_2025-05-01.png
+porto_alegre_2025-05-01.png,media,baixa,0.6385234594345093,data\raw_images\porto_alegre_2025-05-01.png
+fortaleza_2025-05-01.png,media,baixa,0.5729499459266663,data\raw_images\fortaleza_2025-05-01.png
+chapada_diamantina_2025-05-01.png,baixa,alta,0.5479139685630798,data\raw_images\chapada_diamantina_2025-05-01.png
+melbourne_2025-05-01.png,media,baixa,0.4981423020362854,data\raw_images\melbourne_2025-05-01.png
+buenos_aires_microcentro_2025-05-01.png,alta,baixa,0.3947853744029999,data\raw_images\buenos_aires_microcentro_2025-05-01.png
