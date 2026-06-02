@@ -39,7 +39,7 @@ def load_comparison():
 
 
 def run_prediction(image: Image.Image, prediction_override=None) -> None:
-    st.image(image, caption="Imagem analisada", width="stretch")
+    st.image(image, caption="Imagem analisada", use_column_width=True)
     prediction = prediction_override or predict_image(image)
     st.success(
         f"Classe prevista: {prediction['predicted_class'].upper()} | Modelo: {prediction['model_name']}"
@@ -148,19 +148,19 @@ for start_index in range(0, len(sample_rows), 3):
         column.image(
             str(image_path),
             caption=f"{row['visual_density_class']} | {row['zone_type']}",
-            width="stretch",
+            use_column_width=True,
         )
 
 visual_left, visual_right = st.columns(2)
 with visual_left:
     st.subheader("Matriz de confusao do melhor modelo")
     if confusion_matrix_path.exists():
-        st.image(str(confusion_matrix_path), width="stretch")
+        st.image(str(confusion_matrix_path), use_column_width=True)
 
 with visual_right:
     st.subheader("Exemplos de erros")
     if error_examples_path.exists():
-        st.image(str(error_examples_path), width="stretch")
+        st.image(str(error_examples_path), use_column_width=True)
 
 with st.expander("Sobre o projeto"):
     st.markdown(
