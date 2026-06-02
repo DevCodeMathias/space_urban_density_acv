@@ -391,7 +391,11 @@ def collect_available_metrics() -> pd.DataFrame:
     rows = []
     for metrics_path in sorted(REPORTS_DIR.glob("metrics_*.json")):
         with open(metrics_path, "r", encoding="utf-8") as file_handle:
-            rows.append(json.load(file_handle))
+            metrics = json.load(file_handle)
+        model_name = metrics["model_name"]
+        if model_name != STACKING_MODEL_NAME and not (MODELS_DIR / f"{model_name}.pt").exists():
+            continue
+        rows.append(metrics)
     if not rows:
         raise FileNotFoundError("Nenhum arquivo de metricas encontrado para montar a comparacao.")
     return pd.DataFrame(rows).sort_values(["test_accuracy", "best_validation_accuracy"], ascending=False)

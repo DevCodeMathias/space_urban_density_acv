@@ -1,12 +1,13 @@
 {
-    "best_model": "urban_meta_stack_v1",
-    "target_task": "Classificacao da densidade urbana visual em imagens de satelite",
+    "best_model": "urban_cnn_v1",
+    "target_task": "Classificacao da densidade urbana visual em imagens reais de satelite via ArcGIS World Imagery",
     "classes": [
         "baixa",
         "media",
         "alta"
     ],
-    "test_accuracy": 0.8833333333333333,
-    "best_validation_accuracy": 0.8944444444444445,
-    "device_used": "cpu"
+    "test_accuracy": 0.7142857142857143,
+    "best_validation_accuracy": 0.8571428571428571,
+    "device_used": "cpu",
+    "dataset_source": "ArcGIS World Imagery"
 }

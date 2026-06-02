@@ -18,11 +18,9 @@ from inference import load_metadata, predict_image  # noqa: E402
 from nasa_gibs import (  # noqa: E402
     DEFAULT_DATE,
     DEFAULT_EXAMPLES,
-    DEFAULT_LAYER,
     build_real_image_output_path,
-    download_real_image,
 )
-from real_domain import REAL_DOMAIN_MODEL_PATH, predict_real_domain_image  # noqa: E402
+from satellite_imagery import download_arcgis_world_imagery  # noqa: E402
 
 MANIFEST_PATH = PROJECT_ROOT / "data" / "manifest.csv"
 COMPARISON_PATH = PROJECT_ROOT / "reports" / "model_comparison.csv"
@@ -41,7 +39,7 @@ def load_comparison():
 
 
 def run_prediction(image: Image.Image, prediction_override=None) -> None:
-    st.image(image, caption="Imagem analisada", use_column_width=True)
+    st.image(image, caption="Imagem analisada", width="stretch")
     prediction = prediction_override or predict_image(image)
     st.success(
         f"Classe prevista: {prediction['predicted_class'].upper()} | Modelo: {prediction['model_name']}"
@@ -51,7 +49,7 @@ def run_prediction(image: Image.Image, prediction_override=None) -> None:
 
 st.title("Applied Computer Vision - Densidade Urbana por Imagem de Satelite")
 st.caption(
-    "Classificacao de densidade urbana visual com visao computacional, incluindo teste com imagens reais da NASA."
+    "Classificacao de densidade urbana visual com visao computacional, incluindo teste com imagens reais de satelite."
 )
 
 if not MANIFEST_PATH.exists() or not COMPARISON_PATH.exists():
@@ -79,9 +77,9 @@ with left_column:
     if uploaded_file:
         run_prediction(Image.open(uploaded_file))
     else:
-        st.info("Envie uma imagem ou use a busca da NASA logo abaixo para rodar a inferencia do melhor modelo.")
+        st.info("Envie uma imagem ou use a busca de satelite logo abaixo para rodar a inferencia do melhor modelo.")
 
-    st.subheader("Baixar imagem real da NASA")
+    st.subheader("Baixar imagem real de satelite")
     preset_options = {example.name: example for example in DEFAULT_EXAMPLES}
     selected_preset = st.selectbox(
         "Preset de local real",
@@ -94,7 +92,7 @@ with left_column:
         default_latitude = -23.5505
         default_longitude = -46.6333
         default_bbox_size = 12000
-        location_note = "Informe coordenadas reais para buscar um patch de satelite diretamente da NASA GIBS."
+        location_note = "Informe coordenadas reais para buscar um recorte nitido de satelite."
     else:
         preset = preset_options[selected_preset]
         default_latitude = preset.latitude
@@ -114,32 +112,26 @@ with left_column:
             value=int(default_bbox_size),
         )
         image_date = st.date_input("Data da imagem", value=default_date)
-        submitted = st.form_submit_button("Baixar da NASA e classificar")
+        submitted = st.form_submit_button("Baixar imagem e classificar")
 
     if submitted:
         request_name = selected_preset if selected_preset != "manual" else f"manual_{latitude:.4f}_{longitude:.4f}"
         output_path = build_real_image_output_path(request_name, image_date.isoformat())
         try:
-            image_bytes, source_url, saved_path = download_real_image(
+            image_bytes, source_url, saved_path = download_arcgis_world_imagery(
                 latitude=latitude,
                 longitude=longitude,
                 bbox_size_meters=bbox_size_meters,
-                date=image_date.isoformat(),
-                layer=DEFAULT_LAYER,
                 output_path=output_path,
+                image_size=1024,
             )
             fetched_image = Image.open(io.BytesIO(image_bytes))
-            st.caption(f"Fonte NASA GIBS: {source_url}")
+            st.caption(f"Fonte ArcGIS World Imagery: {source_url}")
             if saved_path is not None:
                 st.caption(f"Imagem salva em: {saved_path}")
-            if REAL_DOMAIN_MODEL_PATH.exists():
-                prediction = predict_real_domain_image(fetched_image)
-                st.caption("Predicao usando o adaptador treinado com imagens reais da NASA.")
-                run_prediction(fetched_image, prediction_override=prediction)
-            else:
-                run_prediction(fetched_image)
+            run_prediction(fetched_image)
         except Exception as error:
-            st.error(f"Nao foi possivel baixar a imagem real da NASA: {error}")
+            st.error(f"Nao foi possivel baixar a imagem real de satelite: {error}")
 
 with right_column:
     st.subheader("Comparacao entre arquiteturas")
@@ -149,25 +141,26 @@ with right_column:
 
 st.subheader("Amostras do dataset")
 sample_rows = manifest.groupby("visual_density_class").head(2).reset_index(drop=True)
-sample_columns = st.columns(len(sample_rows))
-for column, (_, row) in zip(sample_columns, sample_rows.iterrows()):
-    image_path = PROJECT_ROOT / row["local_image_path"]
-    column.image(
-        str(image_path),
-        caption=f"{row['visual_density_class']} | {row['zone_type']}",
-        use_column_width=True,
-    )
+for start_index in range(0, len(sample_rows), 3):
+    sample_columns = st.columns(3)
+    for column, (_, row) in zip(sample_columns, sample_rows.iloc[start_index:start_index + 3].iterrows()):
+        image_path = PROJECT_ROOT / row["local_image_path"]
+        column.image(
+            str(image_path),
+            caption=f"{row['visual_density_class']} | {row['zone_type']}",
+            width="stretch",
+        )
 
 visual_left, visual_right = st.columns(2)
 with visual_left:
     st.subheader("Matriz de confusao do melhor modelo")
     if confusion_matrix_path.exists():
-        st.image(str(confusion_matrix_path), use_column_width=True)
+        st.image(str(confusion_matrix_path), width="stretch")
 
 with visual_right:
     st.subheader("Exemplos de erros")
     if error_examples_path.exists():
-        st.image(str(error_examples_path), use_column_width=True)
+        st.image(str(error_examples_path), width="stretch")
 
 with st.expander("Sobre o projeto"):
     st.markdown(

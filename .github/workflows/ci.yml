@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate Python project
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --extra-index-url https://download.pytorch.org/whl/cpu torch==2.5.1+cpu torchvision==0.20.1+cpu
+          grep -vE '^(torch|torchvision)==' requirements.txt > /tmp/requirements-no-torch.txt
+          python -m pip install -r /tmp/requirements-no-torch.txt
+
+      - name: Check Python syntax
+        run: python -m compileall app src
+
+      - name: Smoke test imports and model builders
+        env:
+          PYTHONPATH: src
+        run: |
+          python - <<'PY'
+          import torch
+
+          from config import CLASS_NAMES
+          from models import build_model, count_parameters
+          from data_utils import load_normalization_stats
+
+          assert CLASS_NAMES == ["baixa", "media", "alta"]
+          for model_name in ("urban_cnn_v1", "urban_cnn_v2", "urban_cnn_v3", "urban_cnn_v4"):
+              model = build_model(model_name)
+              assert count_parameters(model) > 0
+
+          stats = load_normalization_stats("reports/normalization_stats.json")
+          assert "mean" in stats and "std" in stats
+          assert len(stats["mean"]) == 3 and len(stats["std"]) == 3
+          print("Smoke tests passed with torch", torch.__version__)
+          PY
+
+      - name: Validate JSON artifacts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          json_files = [*Path("models").glob("*.json"), *Path("reports").glob("*.json")]
+          if not json_files:
+              raise SystemExit("No JSON artifacts found.")
+
+          for path in json_files:
+              with path.open("r", encoding="utf-8") as file_handle:
+                  json.load(file_handle)
+
+          print(f"Validated {len(json_files)} JSON artifacts.")
+          PY
+
+      - name: Validate CSV artifacts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          import pandas as pd
+
+          csv_files = [Path("data/manifest.csv"), *Path("data/splits").glob("*.csv"), *Path("reports").glob("*.csv")]
+          missing = [str(path) for path in csv_files if not path.exists()]
+          if missing:
+              raise SystemExit(f"Missing CSV artifacts: {missing}")
+
+          for path in csv_files:
+              frame = pd.read_csv(path)
+              if frame.empty:
+                  raise SystemExit(f"Empty CSV artifact: {path}")
+
+          print(f"Validated {len(csv_files)} CSV artifacts.")
+          PY

@@ -11,7 +11,7 @@ Projeto de Visao Computacional aplicado a Industria Espacial e conectado ao tema
 
 ## 1. Definicao do problema de visao computacional
 
-O problema resolvido neste projeto e a **classificacao de densidade urbana visual** em imagens de satelite sinteticas.
+O problema resolvido neste projeto e a **classificacao de densidade urbana visual** em imagens reais de satelite.
 
 Cada imagem e classificada em uma de tres categorias:
 
@@ -30,13 +30,14 @@ No contexto da Industria Espacial, a proposta se conecta ao uso de observacao da
 
 ## 2. Dataset utilizado
 
-O dataset foi **criado e adaptado pela equipe** a partir da base sintetica do projeto integrado anterior.
+O dataset foi **criado e adaptado pela equipe** a partir de recortes reais baixados pelo ArcGIS World Imagery.
 
 ### Origem das imagens
 
-- imagens sinteticas estilo satelite geradas pela propria equipe
-- patches RGB de `64 x 64`
-- cenas com diferentes niveis de area construida, vegetacao, agua e vias
+- imagens reais de satelite baixadas pelo servico ArcGIS World Imagery
+- camada utilizada: `World_Imagery`
+- recortes RGB salvos em `data/raw_images/`
+- cenas reais com diferentes niveis de area construida, vegetacao, agua e vias
 
 ### Classes utilizadas
 
@@ -50,24 +51,24 @@ Essa formulacao foi escolhida porque e mais aderente ao conteudo efetivamente vi
 
 ### Quantidade de imagens
 
-- total: `1.200`
-- `baixa`: `290`
-- `media`: `516`
-- `alta`: `394`
+- total: `45`
+- `baixa`: `15`
+- `media`: `15`
+- `alta`: `15`
 
 ### Divisao entre treino, validacao e teste
 
 A divisao foi feita de forma estratificada:
 
-- treino: `840` imagens
-- validacao: `180` imagens
-- teste: `180` imagens
+- treino: `31` imagens
+- validacao: `7` imagens
+- teste: `7` imagens
 
 Distribuicao final por split:
 
-- treino: `203 baixa`, `361 media`, `276 alta`
-- validacao: `43 baixa`, `78 media`, `59 alta`
-- teste: `44 baixa`, `77 media`, `59 alta`
+- treino: `10 baixa`, `10 media`, `11 alta`
+- validacao: `2 baixa`, `3 media`, `2 alta`
+- teste: `3 baixa`, `2 media`, `2 alta`
 
 Arquivo de distribuicao:
 
@@ -77,6 +78,7 @@ Arquivo de distribuicao:
 
 As principais etapas foram:
 
+- download dos recortes reais pelo ArcGIS World Imagery
 - organizacao do dataset em projeto independente
 - split estratificado treino, validacao e teste
 - redimensionamento para `64 x 64`
@@ -151,13 +153,16 @@ As metricas usadas para avaliacao foram:
 
 | Modelo | Parametros | Melhor acuracia de validacao | Acuracia em teste | Loss em teste |
 |---|---:|---:|---:|---:|
-| UrbanDensityCNNV1 | 2.191.427 | 81,11% | 78,33% | 0,3976 |
-| UrbanDensityCNNV2 | 300.579 | 85,56% | 83,33% | 0,3222 |
+| UrbanDensityCNNV1 | 2.191.427 | 85,71% | 71,43% | 0,4787 |
+| UrbanDensityCNNV2 | 300.579 | 42,86% | 28,57% | 1,0961 |
+| UrbanDensityCNNV3 | 1.944.867 | 71,43% | 42,86% | 1,0582 |
+| UrbanDensityCNNV4 | 1.982.148 | 71,43% | 42,86% | 1,1622 |
+| UrbanMetaStackV1 | 60 | 100,00% | 42,86% | n/a |
 
 ### Melhor modelo
 
-- melhor arquitetura: `UrbanDensityCNNV2`
-- acuracia final em teste: `83,33%`
+- melhor arquitetura atual: `UrbanDensityCNNV1`
+- acuracia final em teste: `71,43%`
 
 Arquivos gerados:
 
@@ -212,17 +217,18 @@ Mesmo com menos parametros, `UrbanDensityCNNV2` foi superior porque sua arquitet
 
 O enunciado define uma referencia minima de **88% de acuracia no conjunto de teste**.
 
-Resultado obtido pelo melhor modelo:
+Resultado obtido pelo melhor modelo no dataset real atual:
 
-- `83,33%`
+- `71,43%`
 
 ### Justificativa tecnica
 
 A meta de 88% nao foi atingida. A principal justificativa tecnica e:
 
+- o dataset real atual e pequeno (`45` imagens)
 - as imagens sao pequenas (`64 x 64`) e bastante ruidosas
 - existe sobreposicao visual entre classes medias e altas
-- diferentes zonas urbanas sinteticas compartilham texturas parecidas
+- diferentes zonas urbanas reais compartilham texturas parecidas
 - parte da separacao entre classes ainda depende de sinais sutis, como mistura entre vegetacao, vias e area construida
 
 ### Melhorias futuras
