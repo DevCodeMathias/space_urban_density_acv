@@ -25,78 +25,78 @@ COMPARISON_PATH = PROJECT_ROOT / "reports" / "model_comparison.csv"
 PRODUCT_NAME = "UrbanLens Mobility"
 MOBILITY_PROFILES = {
     "baixa": {
-        "signal": "Possivel espraiamento urbano",
+        "signal": "Possível espraiamento urbano",
         "focus": "Conectar periferias e reduzir viagens longas",
         "summary": (
-            "A ocupacao visual dispersa pode indicar distancias maiores entre moradia, trabalho "
-            "e servicos, elevando o custo do transporte e a dependencia do automovel."
+            "A ocupação visual dispersa pode indicar distâncias maiores entre moradia, trabalho "
+            "e serviços, elevando o custo do transporte e a dependência do automóvel."
         ),
         "risks": [
             "Baixa viabilidade operacional do transporte coletivo convencional.",
-            "Longos deslocamentos para acessar emprego, saude e educacao.",
-            "Expansao da malha viaria e maior custo de infraestrutura por habitante.",
+            "Longos deslocamentos para acessar emprego, saúde e educação.",
+            "Expansão da malha viária e maior custo de infraestrutura por habitante.",
         ],
         "actions": [
             "Mapear centralidades e destinos essenciais ainda pouco conectados.",
-            "Avaliar linhas alimentadoras, transporte sob demanda e integracao tarifaria.",
+            "Avaliar linhas alimentadoras, transporte sob demanda e integração tarifária.",
             "Priorizar rotas seguras de caminhada e bicicleta para o acesso local.",
-            "Coordenar novas ocupacoes com corredores de transporte coletivo existentes.",
+            "Coordenar novas ocupações com corredores de transporte coletivo existentes.",
         ],
         "validation_data": [
-            "Tempo medio de viagem e matriz origem-destino.",
-            "Cobertura e frequencia do transporte coletivo.",
-            "Distancia a empregos, escolas, saude e comercio.",
-            "Evolucao da mancha urbana e uso do solo.",
+            "Tempo médio de viagem e matriz origem-destino.",
+            "Cobertura e frequência do transporte coletivo.",
+            "Distância a empregos, escolas, saúde e comércio.",
+            "Evolução da mancha urbana e uso do solo.",
         ],
     },
     "media": {
         "signal": "Potencial de densidade equilibrada",
         "focus": "Consolidar centralidades conectadas",
         "summary": (
-            "A ocupacao visual intermediaria pode favorecer uma rede multimodal eficiente, "
-            "desde que haja diversidade de usos, transporte coletivo e acesso seguro a pe."
+            "A ocupação visual intermediária pode favorecer uma rede multimodal eficiente, "
+            "desde que haja diversidade de usos, transporte coletivo e acesso seguro a pé."
         ),
         "risks": [
-            "Perda do equilibrio caso a expansao ocorra sem conexao com transporte.",
-            "Dependencia gradual do automovel em bairros monofuncionais.",
-            "Desigualdade de acesso entre setores do mesmo territorio.",
+            "Perda do equilíbrio caso a expansão ocorra sem conexão com transporte.",
+            "Dependência gradual do automóvel em bairros monofuncionais.",
+            "Desigualdade de acesso entre setores do mesmo território.",
         ],
         "actions": [
             "Preservar a conectividade entre bairros, centralidades e corredores de transporte.",
-            "Fortalecer linhas estruturais e integracao com caminhada e bicicleta.",
-            "Estimular uso misto e servicos de proximidade nos eixos consolidados.",
-            "Monitorar crescimento para evitar espraiamento ou saturacao futura.",
+            "Fortalecer linhas estruturais e integração com caminhada e bicicleta.",
+            "Estimular uso misto e serviços de proximidade nos eixos consolidados.",
+            "Monitorar crescimento para evitar espraiamento ou saturação futura.",
         ],
         "validation_data": [
-            "Distribuicao de empregos e servicos por bairro.",
-            "Acessibilidade a pe aos pontos de transporte.",
-            "Frequencia, lotacao e regularidade das linhas.",
-            "Mudancas recentes no uso e ocupacao do solo.",
+            "Distribuição de empregos e serviços por bairro.",
+            "Acessibilidade a pé aos pontos de transporte.",
+            "Frequência, lotação e regularidade das linhas.",
+            "Mudanças recentes no uso e ocupação do solo.",
         ],
     },
     "alta": {
-        "signal": "Possivel pressao sobre a rede de mobilidade",
+        "signal": "Possível pressão sobre a rede de mobilidade",
         "focus": "Ampliar capacidade e qualidade do acesso",
         "summary": (
-            "A ocupacao visual concentrada pode sustentar transporte coletivo de alta capacidade, "
-            "mas exige infraestrutura compativel para evitar saturacao, inseguranca e exclusao."
+            "A ocupação visual concentrada pode sustentar transporte coletivo de alta capacidade, "
+            "mas exige infraestrutura compatível para evitar saturação, insegurança e exclusão."
         ),
         "risks": [
-            "Lotacao e baixa confiabilidade do transporte coletivo.",
-            "Conflitos entre pedestres, bicicletas, onibus, cargas e automoveis.",
-            "Barreiras de acesso a servicos em areas muito concentradas.",
+            "Lotação e baixa confiabilidade do transporte coletivo.",
+            "Conflitos entre pedestres, bicicletas, ônibus, cargas e automóveis.",
+            "Barreiras de acesso a serviços em áreas muito concentradas.",
         ],
         "actions": [
-            "Medir lotacao e ampliar capacidade nos corredores de maior demanda.",
-            "Qualificar calcadas, travessias, iluminacao e acesso aos pontos de transporte.",
+            "Medir lotação e ampliar capacidade nos corredores de maior demanda.",
+            "Qualificar calçadas, travessias, iluminação e acesso aos pontos de transporte.",
             "Integrar bicicleta, linhas alimentadoras e transporte de alta capacidade.",
-            "Reorganizar estacionamento, carga e descarga e circulacao viaria.",
+            "Reorganizar estacionamento, carga e descarga e circulação viária.",
         ],
         "validation_data": [
-            "Lotacao por faixa horaria e velocidade operacional.",
-            "Fluxo de pedestres e seguranca viaria.",
-            "Cobertura de calcadas, ciclovias e areas de integracao.",
-            "Capacidade de escolas, saude e demais servicos locais.",
+            "Lotação por faixa horária e velocidade operacional.",
+            "Fluxo de pedestres e segurança viária.",
+            "Cobertura de calçadas, ciclovias e áreas de integração.",
+            "Capacidade de escolas, saúde e demais serviços locais.",
         ],
     },
 }
@@ -105,51 +105,288 @@ st.set_page_config(page_title=PRODUCT_NAME, layout="wide")
 st.markdown(
     """
     <style>
+    :root {
+        --brand-950: #063c3b;
+        --brand-800: #075e54;
+        --brand-700: #087f5b;
+        --brand-500: #1b9aaa;
+        --ink-900: #102a43;
+        --ink-700: #334e68;
+        --ink-500: #627d98;
+        --line: #d9e5e2;
+        --surface: #ffffff;
+        --surface-soft: #f3f8f6;
+    }
     .stApp {
-        background: linear-gradient(180deg, #f4f8f7 0%, #ffffff 26%);
+        color: var(--ink-900);
+        background: #f7faf9;
+    }
+    .block-container {
+        max-width: 1180px;
+        padding-top: 1rem;
+        padding-bottom: 4rem;
+    }
+    header[data-testid="stHeader"] {
+        display: none;
+    }
+    .product-nav {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.85rem;
+    }
+    .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        color: #ffffff;
+        background: var(--brand-800);
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+    }
+    .brand-copy {
+        line-height: 1.05;
+    }
+    .brand-copy strong {
+        display: block;
+        font-size: 1rem;
+        color: var(--ink-900);
+    }
+    .brand-copy span {
+        font-size: 0.73rem;
+        color: var(--ink-500);
+    }
+    .product-pill {
+        margin-left: auto;
+        padding: 0.36rem 0.7rem;
+        border: 1px solid #b9d8ce;
+        border-radius: 999px;
+        color: var(--brand-800);
+        background: #eaf5f1;
+        font-size: 0.72rem;
+        font-weight: 700;
     }
     .product-hero {
-        padding: 2rem 2.2rem;
-        border-radius: 18px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(250px, 0.65fr);
+        gap: 2rem;
+        align-items: center;
+        padding: 1.7rem 1.9rem;
+        border-radius: 20px;
         color: white;
         background: linear-gradient(120deg, #073b4c 0%, #087f5b 58%, #1b9aaa 100%);
-        box-shadow: 0 16px 40px rgba(7, 59, 76, 0.18);
-        margin-bottom: 1.2rem;
+        box-shadow: 0 14px 32px rgba(7, 59, 76, 0.14);
+        margin-bottom: 0.85rem;
     }
     .product-hero h1 {
         color: white;
-        margin: 0 0 0.35rem 0;
-        font-size: 2.35rem;
+        margin: 0 0 0.45rem 0;
+        max-width: 760px;
+        font-size: clamp(1.85rem, 4vw, 2.7rem);
+        line-height: 1.08;
     }
     .product-hero p {
         margin: 0;
-        max-width: 850px;
-        font-size: 1.05rem;
-        opacity: 0.95;
+        max-width: 720px;
+        font-size: 0.98rem;
+        line-height: 1.55;
+        opacity: 0.92;
     }
     .eyebrow {
-        font-size: 0.78rem;
+        font-size: 0.7rem;
         font-weight: 700;
         letter-spacing: 0.11em;
         text-transform: uppercase;
         opacity: 0.82;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.55rem;
     }
-    .decision-card {
+    .hero-outcome {
         padding: 1rem 1.1rem;
-        border: 1px solid #d7e5e0;
-        border-radius: 12px;
-        background: #ffffff;
-        min-height: 132px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.10);
+        backdrop-filter: blur(6px);
     }
-    .decision-card strong {
-        color: #075e54;
+    .hero-outcome span {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.75;
+    }
+    .hero-outcome strong {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    .impact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        overflow: hidden;
+        margin-bottom: 0.9rem;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+    }
+    .impact-item {
+        padding: 0.8rem 1rem;
+        border-right: 1px solid var(--line);
+    }
+    .impact-item:last-child {
+        border-right: 0;
+    }
+    .impact-item strong {
+        display: block;
+        color: var(--brand-800);
+        font-size: 1.25rem;
+        line-height: 1.1;
+    }
+    .impact-item span {
+        display: block;
+        margin-top: 0.25rem;
+        color: var(--ink-700);
+        font-size: 0.78rem;
+        line-height: 1.3;
+    }
+    .impact-source {
+        color: var(--ink-500);
+        font-size: 0.65rem;
+    }
+    .section-kicker {
+        margin-bottom: 0.25rem;
+        color: var(--brand-700);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+    .section-title {
+        margin: 0 0 0.35rem 0;
+        color: var(--ink-900);
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+    .section-copy {
+        margin: 0 0 1rem 0;
+        color: var(--ink-700);
+        font-size: 0.95rem;
+    }
+    .mini-list {
+        margin: 0;
+        padding-left: 1.15rem;
+        color: var(--ink-700);
+    }
+    .mini-list li {
+        margin-bottom: 0.55rem;
+        line-height: 1.4;
+    }
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        border-color: var(--line);
+        border-radius: 16px;
+        background: var(--surface);
     }
     div[data-testid="stMetric"] {
-        background: #ffffff;
-        border: 1px solid #d7e5e0;
+        background: var(--surface);
+        border: 1px solid var(--line);
         padding: 0.75rem 1rem;
         border-radius: 12px;
+    }
+    div[data-testid="stFileUploaderDropzone"] {
+        border: 1px dashed #9fc6ba;
+        border-radius: 12px;
+        background: var(--surface-soft);
+    }
+    button[kind="primary"],
+    div[data-testid="stFormSubmitButton"] button,
+    .stDownloadButton button[kind="primary"] {
+        color: #ffffff !important;
+        border-color: var(--brand-700) !important;
+        background: var(--brand-700) !important;
+    }
+    button[kind="primary"]:hover,
+    div[data-testid="stFormSubmitButton"] button:hover,
+    .stDownloadButton button[kind="primary"]:hover {
+        border-color: var(--brand-800) !important;
+        background: var(--brand-800) !important;
+    }
+    div[data-baseweb="tab-list"] {
+        gap: 0.25rem;
+        padding: 0.25rem;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #edf4f1;
+    }
+    button[data-baseweb="tab"] {
+        min-height: 38px;
+        padding: 0.45rem 0.8rem;
+        border-radius: 9px;
+    }
+    button[data-baseweb="tab"][aria-selected="true"] {
+        color: var(--brand-800);
+        background: var(--surface);
+        box-shadow: 0 2px 8px rgba(16, 42, 67, 0.08);
+    }
+    div[data-baseweb="tab-highlight"] {
+        background-color: var(--brand-700);
+    }
+    div[data-testid="stImage"] img {
+        border-radius: 14px;
+    }
+    @media (max-width: 720px) {
+        .block-container {
+            padding-top: 0.9rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .product-pill {
+            display: none;
+        }
+        .product-hero {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+            padding: 1.25rem;
+            border-radius: 16px;
+        }
+        .product-hero h1 {
+            font-size: 1.8rem;
+        }
+        .product-hero p {
+            font-size: 0.9rem;
+        }
+        .hero-outcome {
+            display: none;
+        }
+        .impact-item {
+            padding: 0.7rem 0.6rem;
+        }
+        .impact-item strong {
+            font-size: 1.05rem;
+        }
+        .impact-item span {
+            font-size: 0.67rem;
+        }
+        .impact-source {
+            display: none;
+        }
+        div[data-baseweb="tab-list"] {
+            overflow-x: auto;
+        }
+        button[data-baseweb="tab"] {
+            white-space: nowrap;
+            font-size: 0.78rem;
+        }
+        .section-title {
+            font-size: 1.45rem;
+        }
+        .section-copy {
+            margin-bottom: 0.65rem;
+            font-size: 0.86rem;
+            line-height: 1.45;
+        }
     }
     </style>
     """,
@@ -179,18 +416,18 @@ def build_mobility_diagnosis(prediction: dict, transport_supply: str) -> dict:
     profile = MOBILITY_PROFILES[predicted_class]
 
     if confidence < 0.55:
-        priority = "Validar evidencias"
+        priority = "Validar evidências"
     elif transport_supply == "Baixa" and predicted_class in {"baixa", "alta"}:
         priority = "Alta"
     elif predicted_class in {"baixa", "alta"}:
-        priority = "Media-alta"
+        priority = "Média-alta"
     else:
         priority = "Moderada"
 
     contextual_note = {
-        "Baixa": "A oferta informada reforca a necessidade de investigar lacunas de acesso.",
-        "Media": "A oferta informada deve ser comparada com demanda, frequencia e cobertura.",
-        "Alta": "A oferta informada e positiva, mas capacidade e acesso de ultima milha ainda precisam ser medidos.",
+        "Baixa": "A oferta informada reforça a necessidade de investigar lacunas de acesso.",
+        "Media": "A oferta informada deve ser comparada com demanda, frequência e cobertura.",
+        "Alta": "A oferta informada é positiva, mas capacidade e acesso de última milha ainda precisam ser medidos.",
         "Nao informada": "Informe ou cruze a oferta de transporte para refinar a prioridade.",
     }[transport_supply]
 
@@ -275,14 +512,14 @@ def build_analysis_report(history: list[dict]) -> bytes:
     display_names = {
         "data_hora_utc": "Data/hora (UTC)",
         "origem": "Origem",
-        "referencia": "Referencia",
+        "referencia": "Referência",
         "classe_prevista": "Classe prevista",
-        "confianca": "Confianca",
+        "confianca": "Confiança",
         "sinal_mobilidade": "Sinal territorial",
         "prioridade": "Prioridade",
         "foco": "Foco recomendado",
         "oferta_transporte": "Oferta de transporte informada",
-        "acoes_recomendadas": "Acoes recomendadas",
+        "acoes_recomendadas": "Ações recomendadas",
         "dados_para_validar": "Dados para validar",
         "prob_baixa": "Prob. baixa",
         "prob_media": "Prob. media",
@@ -291,7 +528,7 @@ def build_analysis_report(history: list[dict]) -> bytes:
         "latitude": "Latitude",
         "longitude": "Longitude",
         "data_imagem": "Data da imagem",
-        "area_metros": "Area (m)",
+        "area_metros": "Área (m)",
     }
     report_frame = report_frame.rename(columns=display_names)
     class_summary = (
@@ -306,7 +543,7 @@ def build_analysis_report(history: list[dict]) -> bytes:
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <title>Relatorio de analises de densidade urbana</title>
+  <title>Relatório de análises de densidade urbana</title>
   <style>
     body {{ font-family: Arial, sans-serif; margin: 32px; color: #172033; }}
     h1, h2 {{ color: #102a43; }}
@@ -321,22 +558,22 @@ def build_analysis_report(history: list[dict]) -> bytes:
 </head>
 <body>
   <h1>UrbanLens Mobility</h1>
-  <p>Relatorio executivo de triagem territorial para planejamento de mobilidade urbana.</p>
+  <p>Relatório executivo de triagem territorial para planejamento de mobilidade urbana.</p>
   <div class="summary">
-    <div class="card"><strong>Total de analises</strong><br>{len(history)}</div>
+    <div class="card"><strong>Total de análises</strong><br>{len(history)}</div>
     <div class="card"><strong>Gerado em</strong><br>{generated_at}</div>
   </div>
   <h2>Resumo por classe</h2>
   {class_summary.to_html(index=False, border=0, escape=True)}
-  <h2>Diagnosticos e planos de acao</h2>
+  <h2>Diagnósticos e planos de ação</h2>
   {report_frame.to_html(index=False, border=0, escape=True)}
   <h2>Como interpretar</h2>
   <p>
-    A classificacao representa densidade urbana visual percebida na imagem. Ela nao mede
-    populacao, renda, demanda de viagens ou capacidade real da infraestrutura. As recomendacoes
-    devem ser validadas com dados locais antes de orientar investimento publico.
+    A classificação representa densidade urbana visual percebida na imagem. Ela não mede
+    população, renda, demanda de viagens ou capacidade real da infraestrutura. As recomendações
+    devem ser validadas com dados locais antes de orientar investimento público.
   </p>
-  <p class="footer">Relatorio gerado pelo {PRODUCT_NAME}.</p>
+  <p class="footer">Relatório gerado pelo {PRODUCT_NAME}.</p>
 </body>
 </html>
 """
@@ -352,7 +589,6 @@ def run_prediction(
     transport_supply: str = "Nao informada",
     prediction_override=None,
 ) -> None:
-    st.image(image, caption="Imagem analisada", use_column_width=True)
     prediction_cache = st.session_state.prediction_cache
     if analysis_key in prediction_cache:
         prediction = prediction_cache[analysis_key]
@@ -363,49 +599,94 @@ def run_prediction(
         record_analysis(prediction, diagnosis, source, reference, details)
 
     diagnosis = build_mobility_diagnosis(prediction, transport_supply)
-    st.markdown("### Diagnostico territorial")
-    metric_density, metric_confidence, metric_priority = st.columns(3)
-    metric_density.metric("Padrao visual", prediction["predicted_class"].title())
-    metric_confidence.metric("Confianca do modelo", f"{diagnosis['confidence']:.1%}")
-    metric_priority.metric("Prioridade de investigacao", diagnosis["priority"])
+    st.markdown('<div class="section-kicker">Último diagnóstico</div>', unsafe_allow_html=True)
 
-    st.success(f"{diagnosis['signal']}: {diagnosis['focus']}")
-    st.write(diagnosis["summary"])
-    st.caption(diagnosis["contextual_note"])
+    image_column, result_column = st.columns([0.72, 1.28], gap="large")
+    with image_column:
+        st.image(image, caption=f"{source} | {reference}", use_column_width=True)
 
-    risk_column, action_column, data_column = st.columns(3)
-    with risk_column:
-        st.markdown("#### Riscos a investigar")
+    with result_column:
+        st.markdown(f"## {diagnosis['signal']}")
+        st.write(diagnosis["summary"])
+        st.success(f"Prioridade recomendada: **{diagnosis['focus']}**")
+
+        metric_density, metric_confidence, metric_priority = st.columns(3)
+        metric_density.metric("Padrão", prediction["predicted_class"].title())
+        metric_confidence.metric("Confiança", f"{diagnosis['confidence']:.1%}")
+        metric_priority.metric("Prioridade", diagnosis["priority"])
+        st.caption(diagnosis["contextual_note"])
+
+    st.markdown("### Próximos passos")
+    action_column, data_column = st.columns(2, gap="large")
+    with action_column:
+        with st.container(border=True):
+            st.markdown("#### Plano de ação inicial")
+            for action in diagnosis["actions"]:
+                st.markdown(f"- {action}")
+    with data_column:
+        with st.container(border=True):
+            st.markdown("#### Evidências para confirmar")
+            for validation_item in diagnosis["validation_data"]:
+                st.markdown(f"- {validation_item}")
+
+    with st.expander("Riscos que justificam a investigação"):
         for risk in diagnosis["risks"]:
             st.markdown(f"- {risk}")
-    with action_column:
-        st.markdown("#### Plano de acao inicial")
-        for action in diagnosis["actions"]:
-            st.markdown(f"- {action}")
-    with data_column:
-        st.markdown("#### Dados para validar")
-        for validation_item in diagnosis["validation_data"]:
-            st.markdown(f"- {validation_item}")
 
-    with st.expander("Ver probabilidades do modelo"):
-        st.bar_chart(pd.DataFrame([prediction["probabilities"]]).T.rename(columns={0: "probabilidade"}))
+    with st.expander("Detalhes técnicos da classificação"):
+        st.caption(f"Modelo: {prediction['model_name']}")
+        st.bar_chart(
+            pd.DataFrame([prediction["probabilities"]]).T.rename(
+                columns={0: "probabilidade"}
+            )
+        )
 
-    st.warning(
-        "Triagem de apoio a decisao: densidade visual nao equivale a densidade populacional "
-        "e nao substitui dados de transporte, uso do solo ou pesquisa de campo."
+    st.caption(
+        "Este resultado é uma triagem. Densidade visual não equivale a densidade "
+        "populacional e deve ser cruzada com dados locais antes de orientar investimentos."
     )
 
 
 st.markdown(
     """
+    <div class="product-nav">
+      <div class="brand-mark">UL</div>
+      <div class="brand-copy">
+        <strong>UrbanLens Mobility</strong>
+        <span>Inteligência territorial para mobilidade</span>
+      </div>
+      <div class="product-pill">Triagem para decisão pública</div>
+    </div>
     <div class="product-hero">
-      <div class="eyebrow">Inteligencia territorial para cidades</div>
-      <h1>UrbanLens Mobility</h1>
-      <p>
-        Transforme imagens de satelite em sinais de prioridade para mobilidade urbana.
-        Identifique possivel espraiamento, equilibrio ou pressao territorial e receba um
-        plano inicial de investigacao para orientar decisoes publicas.
-      </p>
+      <div>
+        <div class="eyebrow">Planejamento urbano orientado por dados</div>
+        <h1>Descubra onde a mobilidade precisa de atenção.</h1>
+        <p>
+          Analise a ocupação urbana por satélite e receba prioridades e próximos passos
+          para planejar a mobilidade.
+        </p>
+      </div>
+      <div class="hero-outcome">
+        <span>Da imagem à decisão</span>
+        <strong>Território analisado, risco organizado e próximos passos em um único fluxo.</strong>
+      </div>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <strong>2,5x</strong>
+        <span>crescimento da área urbanizada desde 1985</span>
+        <small class="impact-source">MapBiomas, 1985–2024</small>
+      </div>
+      <div class="impact-item">
+        <strong>70 mil ha</strong>
+        <span>adicionados por ano às cidades brasileiras</span>
+        <small class="impact-source">MapBiomas, 1985–2024</small>
+      </div>
+      <div class="impact-item">
+        <strong>1,3 milhão</strong>
+        <span>leva mais de 2 horas até o trabalho</span>
+        <small class="impact-source">IBGE, Censo 2022</small>
+      </div>
     </div>
     """,
     unsafe_allow_html=True,
@@ -415,9 +696,11 @@ if "analysis_history" not in st.session_state:
     st.session_state.analysis_history = []
 if "prediction_cache" not in st.session_state:
     st.session_state.prediction_cache = {}
+if "last_analysis" not in st.session_state:
+    st.session_state.last_analysis = None
 
 if not MANIFEST_PATH.exists() or not COMPARISON_PATH.exists():
-    st.error("Artefatos nao encontrados. Rode primeiro `python src/prepare_dataset.py` e `python src/train.py`.")
+    st.error("Artefatos não encontrados. Rode primeiro `python src/prepare_dataset.py` e `python src/train.py`.")
     st.stop()
 
 metadata = load_metadata()
@@ -432,174 +715,190 @@ best_artifact_path = (
     else "models/best_model.pt"
 )
 
-value_one, value_two, value_three = st.columns(3)
-with value_one:
-    st.markdown(
-        '<div class="decision-card"><strong>Problema</strong><br>'
-        "Crescimento disperso ou concentrado sem infraestrutura compativel.</div>",
-        unsafe_allow_html=True,
-    )
-with value_two:
-    st.markdown(
-        '<div class="decision-card"><strong>Decisao apoiada</strong><br>'
-        "Onde aprofundar estudos e quais lacunas de mobilidade investigar primeiro.</div>",
-        unsafe_allow_html=True,
-    )
-with value_three:
-    st.markdown(
-        '<div class="decision-card"><strong>Entrega</strong><br>'
-        "Diagnostico territorial, plano de acao inicial e relatorio executivo.</div>",
-        unsafe_allow_html=True,
-    )
-
 diagnosis_tab, history_tab, methodology_tab = st.tabs(
-    ["Diagnostico territorial", "Historico e relatorio", "Metodologia e transparencia"]
+    ["Diagnóstico", "Relatórios", "Sobre o modelo"]
 )
 
 with diagnosis_tab:
-    st.markdown("## Analise um territorio")
-    st.write(
-        "Escolha uma imagem propria ou busque um recorte real. O resultado indica um sinal "
-        "territorial e organiza as proximas perguntas de mobilidade."
+    st.markdown(
+        """
+        <div class="section-kicker">Nova análise</div>
+        <h2 class="section-title">Analise um território</h2>
+        <p class="section-copy">
+          Envie uma imagem ou busque um recorte para gerar prioridade e próximos passos.
+        </p>
+        """,
+        unsafe_allow_html=True,
     )
 
-    input_column, guidance_column = st.columns([1.2, 0.8])
-    analysis_payload = None
+    input_column, guidance_column = st.columns([1.45, 0.55], gap="large")
 
     with input_column:
-        transport_supply = st.selectbox(
-            "Oferta atual de transporte coletivo no territorio",
-            options=["Nao informada", "Baixa", "Media", "Alta"],
-            help="Informacao contextual declarada pelo usuario para priorizar a investigacao.",
-        )
-        source_mode = st.radio(
-            "Fonte da imagem",
-            options=["Enviar imagem", "Buscar territorio"],
-            horizontal=True,
-        )
-
-        if source_mode == "Enviar imagem":
-            uploaded_file = st.file_uploader(
-                "Imagem aerea ou de satelite em PNG/JPG",
-                type=["png", "jpg", "jpeg"],
+        with st.container(border=True):
+            source_mode = st.radio(
+                "Como deseja analisar?",
+                options=["upload", "territory"],
+                format_func=lambda value: {
+                    "upload": "Enviar imagem",
+                    "territory": "Buscar território",
+                }[value],
+                horizontal=True,
             )
-            if uploaded_file:
-                uploaded_bytes = uploaded_file.getvalue()
-                upload_hash = hashlib.sha256(uploaded_bytes).hexdigest()
-                analysis_payload = {
-                    "image": Image.open(io.BytesIO(uploaded_bytes)),
-                    "analysis_key": f"upload:{upload_hash}:{transport_supply}",
-                    "source": "Upload",
-                    "reference": uploaded_file.name,
-                    "details": {"oferta_transporte": transport_supply},
-                }
-        else:
-            preset_options = {example.name: example for example in DEFAULT_EXAMPLES}
-            selected_preset = st.selectbox(
-                "Territorio de referencia",
-                options=["manual", *preset_options.keys()],
-                format_func=lambda value: (
-                    "Informar coordenadas"
-                    if value == "manual"
-                    else value.replace("_", " ").title()
-                ),
+            transport_supply = st.selectbox(
+                "Oferta atual de transporte coletivo",
+                options=["Nao informada", "Baixa", "Media", "Alta"],
+                format_func=lambda value: {
+                    "Nao informada": "Não informada",
+                    "Baixa": "Baixa",
+                    "Media": "Média",
+                    "Alta": "Alta",
+                }[value],
+                help="Contexto informado pelo usuário para refinar a prioridade.",
             )
 
-            if selected_preset == "manual":
-                default_latitude = -23.5505
-                default_longitude = -46.6333
-                default_bbox_size = 12000
-                location_note = "Informe o centro e a extensao aproximada do territorio."
-            else:
-                preset = preset_options[selected_preset]
-                default_latitude = preset.latitude
-                default_longitude = preset.longitude
-                default_bbox_size = preset.bbox_size_meters
-                location_note = preset.note
-
-            st.caption(location_note)
-            with st.form("territory_fetch_form"):
-                latitude = st.number_input("Latitude", value=float(default_latitude), format="%.6f")
-                longitude = st.number_input("Longitude", value=float(default_longitude), format="%.6f")
-                bbox_size_meters = st.slider(
-                    "Extensao analisada ao redor do ponto (metros)",
-                    min_value=2000,
-                    max_value=30000,
-                    step=1000,
-                    value=int(default_bbox_size),
+            if source_mode == "upload":
+                uploaded_file = st.file_uploader(
+                    "Imagem aérea ou de satélite",
+                    type=["png", "jpg", "jpeg"],
+                    help="Use uma imagem com visão superior e boa nitidez.",
                 )
-                submitted = st.form_submit_button(
-                    "Analisar territorio",
+                upload_submitted = st.button(
+                    "Gerar diagnóstico",
                     type="primary",
+                    disabled=uploaded_file is None,
                     use_container_width=True,
                 )
-
-            if submitted:
-                request_name = (
-                    selected_preset
-                    if selected_preset != "manual"
-                    else f"manual_{latitude:.4f}_{longitude:.4f}"
-                )
-                try:
-                    image_bytes, source_url, _ = download_arcgis_world_imagery(
-                        latitude=latitude,
-                        longitude=longitude,
-                        bbox_size_meters=bbox_size_meters,
-                        output_path=None,
-                        image_size=1024,
-                    )
-                    image_hash = hashlib.sha256(image_bytes).hexdigest()
-                    st.caption(f"Imagem obtida de ArcGIS World Imagery. [Ver requisicao]({source_url})")
-                    analysis_payload = {
-                        "image": Image.open(io.BytesIO(image_bytes)),
-                        "analysis_key": f"satellite:{image_hash}:{transport_supply}",
-                        "source": "ArcGIS World Imagery",
-                        "reference": request_name,
-                        "details": {
-                            "latitude": latitude,
-                            "longitude": longitude,
-                            "data_imagem": "Mosaico atual do provedor",
-                            "area_metros": bbox_size_meters,
-                            "oferta_transporte": transport_supply,
-                        },
+                if upload_submitted and uploaded_file is not None:
+                    uploaded_bytes = uploaded_file.getvalue()
+                    upload_hash = hashlib.sha256(uploaded_bytes).hexdigest()
+                    st.session_state.last_analysis = {
+                        "image_bytes": uploaded_bytes,
+                        "analysis_key": f"upload:{upload_hash}:{transport_supply}",
+                        "source": "Upload",
+                        "reference": uploaded_file.name,
+                        "details": {"oferta_transporte": transport_supply},
+                        "transport_supply": transport_supply,
                     }
-                except Exception as error:
-                    st.error(f"Nao foi possivel obter a imagem do territorio: {error}")
+            else:
+                preset_options = {example.name: example for example in DEFAULT_EXAMPLES}
+                selected_preset = st.selectbox(
+                    "Território de referência",
+                    options=["manual", *preset_options.keys()],
+                    format_func=lambda value: (
+                        "Informar coordenadas"
+                        if value == "manual"
+                        else value.replace("_", " ").title()
+                    ),
+                )
+
+                if selected_preset == "manual":
+                    default_latitude = -23.5505
+                    default_longitude = -46.6333
+                    default_bbox_size = 12000
+                    location_note = "Informe o centro e a extensão do território."
+                else:
+                    preset = preset_options[selected_preset]
+                    default_latitude = preset.latitude
+                    default_longitude = preset.longitude
+                    default_bbox_size = preset.bbox_size_meters
+                    location_note = preset.note
+
+                st.caption(location_note)
+                with st.form("territory_fetch_form"):
+                    coordinate_left, coordinate_right = st.columns(2)
+                    latitude = coordinate_left.number_input(
+                        "Latitude",
+                        value=float(default_latitude),
+                        format="%.6f",
+                    )
+                    longitude = coordinate_right.number_input(
+                        "Longitude",
+                        value=float(default_longitude),
+                        format="%.6f",
+                    )
+                    bbox_size_meters = st.slider(
+                        "Extensão analisada (metros)",
+                        min_value=2000,
+                        max_value=30000,
+                        step=1000,
+                        value=int(default_bbox_size),
+                    )
+                    submitted = st.form_submit_button(
+                        "Buscar e gerar diagnóstico",
+                        type="primary",
+                        use_container_width=True,
+                    )
+
+                if submitted:
+                    request_name = (
+                        selected_preset
+                        if selected_preset != "manual"
+                        else f"manual_{latitude:.4f}_{longitude:.4f}"
+                    )
+                    try:
+                        image_bytes, _, _ = download_arcgis_world_imagery(
+                            latitude=latitude,
+                            longitude=longitude,
+                            bbox_size_meters=bbox_size_meters,
+                            output_path=None,
+                            image_size=1024,
+                        )
+                        image_hash = hashlib.sha256(image_bytes).hexdigest()
+                        st.session_state.last_analysis = {
+                            "image_bytes": image_bytes,
+                            "analysis_key": f"satellite:{image_hash}:{transport_supply}",
+                            "source": "ArcGIS World Imagery",
+                            "reference": request_name,
+                            "details": {
+                                "latitude": latitude,
+                                "longitude": longitude,
+                                "data_imagem": "Mosaico atual do provedor",
+                                "area_metros": bbox_size_meters,
+                                "oferta_transporte": transport_supply,
+                            },
+                            "transport_supply": transport_supply,
+                        }
+                    except Exception as error:
+                        st.error(f"Não foi possível obter a imagem: {error}")
 
     with guidance_column:
-        st.markdown("### O que o produto responde")
-        st.markdown(
-            """
-            1. O padrao construido parece disperso, equilibrado ou concentrado?
-            2. Qual problema de mobilidade merece investigacao primeiro?
-            3. Quais acoes podem compor um plano inicial?
-            4. Quais dados precisam confirmar a hipotese?
-            """
-        )
+        with st.container(border=True):
+            st.markdown("### Você recebe")
+            st.markdown(
+                """
+                <ul class="mini-list">
+                  <li>Padrão visual do território</li>
+                  <li>Prioridade de investigação</li>
+                  <li>Plano de ação inicial</li>
+                  <li>Dados que precisam ser confirmados</li>
+                </ul>
+                """,
+                unsafe_allow_html=True,
+            )
         st.info(
-            "Foco recomendado: mobilidade urbana. Para diagnosticar acesso a moradia seriam "
-            "necessarios dados adicionais de renda, preco, vacancia, deficit e zoneamento."
-        )
-        st.markdown("### Publico do produto")
-        st.write(
-            "Prefeituras, equipes de planejamento, mobilidade, desenvolvimento urbano "
-            "e consultorias territoriais."
+            "O sistema faz triagem territorial. A decisão final deve combinar transporte, "
+            "população, uso do solo e pesquisa de campo."
         )
 
-    if analysis_payload:
+    if st.session_state.last_analysis:
         st.divider()
+        last_analysis = st.session_state.last_analysis
         run_prediction(
-            **analysis_payload,
-            transport_supply=transport_supply,
+            image=Image.open(io.BytesIO(last_analysis["image_bytes"])),
+            analysis_key=last_analysis["analysis_key"],
+            source=last_analysis["source"],
+            reference=last_analysis["reference"],
+            details=last_analysis["details"],
+            transport_supply=last_analysis["transport_supply"],
         )
     else:
-        st.info("Selecione uma imagem para gerar o diagnostico e liberar o relatorio.")
+        st.caption("O último diagnóstico permanecerá aqui durante a sessão.")
 
 with history_tab:
-    st.markdown("## Carteira de territorios analisados")
+    st.markdown("## Carteira de territórios analisados")
     st.write(
-        "Compare os sinais encontrados durante esta sessao e exporte um documento para "
-        "discussao tecnica ou apresentacao."
+        "Compare os sinais encontrados durante esta sessão e exporte um documento para "
+        "discussão técnica ou apresentação."
     )
     if st.session_state.analysis_history:
         history_frame = pd.DataFrame(st.session_state.analysis_history)
@@ -621,9 +920,9 @@ with history_tab:
         history_preview = history_preview.rename(
             columns={
                 "data_hora_utc": "Data/hora UTC",
-                "referencia": "Territorio",
-                "classe_prevista": "Padrao visual",
-                "confianca": "Confianca",
+                "referencia": "Território",
+                "classe_prevista": "Padrão visual",
+                "confianca": "Confiança",
                 "sinal_mobilidade": "Sinal territorial",
                 "prioridade": "Prioridade",
             }
@@ -633,7 +932,7 @@ with history_tab:
         export_column, clear_column = st.columns([3, 1])
         with export_column:
             st.download_button(
-                "Exportar relatorio executivo",
+                "Exportar relatório executivo",
                 data=build_analysis_report(st.session_state.analysis_history),
                 file_name=f"urbanlens_mobility_{date.today().isoformat()}.html",
                 mime="text/html",
@@ -641,42 +940,43 @@ with history_tab:
                 use_container_width=True,
             )
         with clear_column:
-            if st.button("Limpar historico", use_container_width=True):
+            if st.button("Limpar histórico", use_container_width=True):
                 st.session_state.analysis_history = []
                 st.session_state.prediction_cache = {}
+                st.session_state.last_analysis = None
                 st.rerun()
     else:
-        st.info("As analises feitas nesta sessao aparecerao aqui.")
+        st.info("As análises feitas nesta sessão aparecerão aqui.")
         st.download_button(
-            "Exportar relatorio executivo",
+            "Exportar relatório executivo",
             data=b"",
             file_name=f"urbanlens_mobility_{date.today().isoformat()}.html",
             mime="text/html",
             disabled=True,
             use_container_width=True,
         )
-        st.caption("Analise ao menos um territorio para liberar o relatorio.")
+        st.caption("Analise ao menos um território para liberar o relatório.")
 
 with methodology_tab:
     st.markdown("## Metodologia e limites")
     st.warning(
-        "O modelo classifica densidade urbana visual. Ele nao estima diretamente populacao, "
+        "O modelo classifica densidade urbana visual. Ele não estima diretamente população, "
         "renda, demanda de viagens, congestionamento ou qualidade da infraestrutura."
     )
 
     model_column, validation_column, use_column = st.columns(3)
-    model_column.metric("Modelo em producao", best_model_name)
+    model_column.metric("Modelo em produção", best_model_name)
     validation_column.metric(
-        "Melhor acuracia de validacao",
+        "Melhor acurácia de validação",
         f"{metadata['best_validation_accuracy'] * 100:.2f}%",
     )
-    use_column.metric("Acuracia em teste", f"{metadata['test_accuracy'] * 100:.2f}%")
+    use_column.metric("Acurácia em teste", f"{metadata['test_accuracy'] * 100:.2f}%")
 
-    with st.expander("Desempenho e comparacao dos modelos"):
+    with st.expander("Desempenho e comparação dos modelos"):
         st.dataframe(comparison, use_container_width=True)
         visual_left, visual_right = st.columns(2)
         with visual_left:
-            st.markdown("#### Matriz de confusao")
+            st.markdown("#### Matriz de confusão")
             if confusion_matrix_path.exists():
                 st.image(str(confusion_matrix_path), use_column_width=True)
         with visual_right:
@@ -697,13 +997,13 @@ with methodology_tab:
                 if image_path.is_file():
                     column.image(str(image_path), caption=caption, use_column_width=True)
                 else:
-                    column.warning(f"Imagem indisponivel: {caption}")
+                    column.warning(f"Imagem indisponível: {caption}")
 
-    st.markdown("### Referencias de planejamento")
+    st.markdown("### Referências de planejamento")
     st.markdown(
         """
-        - [WRI Brasil - Desenvolvimento Orientado ao Transporte Sustentavel](https://www.wribrasil.org.br/projetos/desenvolvimento-orientado-ao-transporte-sustentavel-dots)
-        - [ITDP - Principios de Desenvolvimento Orientado ao Transporte](https://itdp.org/publication/principios-desenvolvimento-orientado-ao-transporte/)
+        - [WRI Brasil - Desenvolvimento Orientado ao Transporte Sustentável](https://www.wribrasil.org.br/projetos/desenvolvimento-orientado-ao-transporte-sustentavel-dots)
+        - [ITDP - Princípios de Desenvolvimento Orientado ao Transporte](https://itdp.org/publication/principios-desenvolvimento-orientado-ao-transporte/)
         - [UN-Habitat - Planejamento e desenho urbano](https://unhabitat.org/planning-and-design/)
         """
     )
