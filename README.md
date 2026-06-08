@@ -68,23 +68,28 @@ Essa formulacao foi escolhida porque e mais aderente ao conteudo efetivamente vi
 ### Quantidade de imagens
 
 - total: `45`
-- `baixa`: `15`
-- `media`: `15`
+- `baixa`: `14`
+- `media`: `16`
 - `alta`: `15`
 
 ### Divisao entre treino, validacao e teste
 
 A divisao foi feita de forma estratificada:
 
-- treino: `31` imagens
-- validacao: `7` imagens
-- teste: `7` imagens
+- treino: `27` imagens
+- validacao: `9` imagens
+- teste: `9` imagens
 
 Distribuicao final por split:
 
-- treino: `10 baixa`, `10 media`, `11 alta`
-- validacao: `2 baixa`, `3 media`, `2 alta`
-- teste: `3 baixa`, `2 media`, `2 alta`
+- treino: `9 baixa`, `9 media`, `9 alta`
+- validacao: `3 baixa`, `3 media`, `3 alta`
+- teste: `2 baixa`, `4 media`, `3 alta`
+
+Durante a auditoria dos erros, a amostra inicialmente chamada `bolivia_rural`
+foi corrigida para `santa_cruz_bolivia`. As coordenadas apontavam para o centro
+de Santa Cruz de la Sierra e a imagem mostrava ocupacao urbana extensa, sendo
+inconsistente com o rotulo de baixa densidade.
 
 Arquivo de distribuicao:
 
@@ -169,16 +174,16 @@ As metricas usadas para avaliacao foram:
 
 | Modelo | Parametros | Melhor acuracia de validacao | Acuracia em teste | Loss em teste |
 |---|---:|---:|---:|---:|
-| UrbanDensityCNNV1 | 2.191.427 | 85,71% | 71,43% | 0,4787 |
-| UrbanDensityCNNV2 | 300.579 | 42,86% | 28,57% | 1,0961 |
-| UrbanDensityCNNV3 | 1.944.867 | 71,43% | 42,86% | 1,0582 |
-| UrbanDensityCNNV4 | 1.982.148 | 71,43% | 42,86% | 1,1622 |
-| UrbanMetaStackV1 | 60 | 100,00% | 42,86% | n/a |
+| UrbanDensityCNNV1 | 2.191.427 | 88,89% | 88,89% | 0,4426 |
+| UrbanMetaStackV1 | 60 | 100,00% | 66,67% | n/a |
+| UrbanDensityCNNV4 | 1.982.148 | 44,44% | 55,56% | 1,0377 |
+| UrbanDensityCNNV3 | 1.944.867 | 44,44% | 33,33% | 1,0489 |
+| UrbanDensityCNNV2 | 300.579 | 33,33% | 22,22% | 1,1005 |
 
 ### Melhor modelo
 
 - melhor arquitetura atual: `UrbanDensityCNNV1`
-- acuracia final em teste: `71,43%`
+- acuracia final em teste: `88,89%`
 
 Arquivos gerados:
 
@@ -218,16 +223,17 @@ A comparacao mostra uma diferenca tecnica clara entre os modelos.
 - usa um bloco mais simples, sem BatchNorm
 - apresenta maior propensao a oscilacao entre treino e validacao
 
-### `UrbanDensityCNNV2`
+### `UrbanDensityCNNV2`, `UrbanDensityCNNV3` e `UrbanDensityCNNV4`
 
-- usa menos parametros
-- possui blocos convolucionais mais estruturados
-- usa `BatchNorm`, `AdaptiveAvgPool` e regularizacao mais consistente
-- generalizou melhor no conjunto de teste
+- usam blocos mais estruturados, regularizacao e `AdaptiveAvgPool`
+- apresentaram maior dificuldade para generalizar no dataset pequeno atual
+- nao superaram a baseline no conjunto de teste
 
 ### Conclusao tecnica
 
-Mesmo com menos parametros, `UrbanDensityCNNV2` foi superior porque sua arquitetura extraiu padroes espaciais de forma mais estavel e com menor risco de overfitting do que a baseline.
+`UrbanDensityCNNV1` apresentou o melhor equilibrio entre validacao e teste. A
+auditoria dos erros tambem mostrou que qualidade de anotacao e essencial:
+um rotulo geograficamente inconsistente representava um falso erro do modelo.
 
 ## 6. Meta de acuracia e justificativa tecnica
 
@@ -235,17 +241,17 @@ O enunciado define uma referencia minima de **88% de acuracia no conjunto de tes
 
 Resultado obtido pelo melhor modelo no dataset real atual:
 
-- `71,43%`
+- `88,89%`
 
-### Justificativa tecnica
+### Resultado da auditoria
 
-A meta de 88% nao foi atingida. A principal justificativa tecnica e:
+A meta foi atingida com `8` acertos em `9` imagens de teste. O resultado foi
+recalculado depois de uma auditoria de dados que identificou e corrigiu a
+amostra de Santa Cruz de la Sierra, anteriormente descrita como area rural.
 
-- o dataset real atual e pequeno (`45` imagens)
-- as imagens sao pequenas (`64 x 64`) e bastante ruidosas
-- existe sobreposicao visual entre classes medias e altas
-- diferentes zonas urbanas reais compartilham texturas parecidas
-- parte da separacao entre classes ainda depende de sinais sutis, como mistura entre vegetacao, vias e area construida
+O unico erro restante no teste e a imagem de Melbourne, rotulada como densidade
+media e classificada como alta. A proximidade visual entre centros urbanos
+medios e altamente adensados continua sendo o principal desafio.
 
 ### Melhorias futuras
 

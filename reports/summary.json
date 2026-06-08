@@ -12,9 +12,9 @@
             "best_validation_accuracy": 0.8888888888888888,
             "final_train_accuracy": 0.8148148148148148,
             "final_validation_accuracy": 0.7777777777777778,
-            "test_accuracy": 0.7777777777777778,
-            "test_loss": 0.4771905541419983,
-            "misclassified_examples": 2,
+            "test_accuracy": 0.8888888888888888,
+            "test_loss": 0.4426140785217285,
+            "misclassified_examples": 1,
             "test_built_ratio_mae": NaN
         },
         {
@@ -24,21 +24,9 @@
             "best_validation_accuracy": 1.0,
             "final_train_accuracy": NaN,
             "final_validation_accuracy": 1.0,
-            "test_accuracy": 0.5555555555555556,
+            "test_accuracy": 0.6666666666666666,
             "test_loss": NaN,
-            "misclassified_examples": 4,
-            "test_built_ratio_mae": NaN
-        },
-        {
-            "model_name": "urban_cnn_v3",
-            "trainable_parameters": 1944867,
-            "best_validation_loss": 1.0768303871154785,
-            "best_validation_accuracy": 0.4444444444444444,
-            "final_train_accuracy": 0.8888888888888888,
-            "final_validation_accuracy": 0.3333333333333333,
-            "test_accuracy": 0.4444444444444444,
-            "test_loss": 0.9392192363739014,
-            "misclassified_examples": 5,
+            "misclassified_examples": 3,
             "test_built_ratio_mae": NaN
         },
         {
@@ -48,10 +36,22 @@
             "best_validation_accuracy": 0.4444444444444444,
             "final_train_accuracy": 0.9629629629629629,
             "final_validation_accuracy": 0.3333333333333333,
-            "test_accuracy": 0.4444444444444444,
-            "test_loss": 1.0837063789367676,
-            "misclassified_examples": 5,
-            "test_built_ratio_mae": 0.23094908893108368
+            "test_accuracy": 0.5555555555555556,
+            "test_loss": 1.0376791954040527,
+            "misclassified_examples": 4,
+            "test_built_ratio_mae": 0.19526498019695282
+        },
+        {
+            "model_name": "urban_cnn_v3",
+            "trainable_parameters": 1944867,
+            "best_validation_loss": 1.0768303871154785,
+            "best_validation_accuracy": 0.4444444444444444,
+            "final_train_accuracy": 0.8888888888888888,
+            "final_validation_accuracy": 0.3333333333333333,
+            "test_accuracy": 0.3333333333333333,
+            "test_loss": 1.048945426940918,
+            "misclassified_examples": 6,
+            "test_built_ratio_mae": NaN
         },
         {
             "model_name": "urban_cnn_v2",
@@ -60,9 +60,9 @@
             "best_validation_accuracy": 0.3333333333333333,
             "final_train_accuracy": 0.9259259259259259,
             "final_validation_accuracy": 0.3333333333333333,
-            "test_accuracy": 0.3333333333333333,
-            "test_loss": 1.0975435972213745,
-            "misclassified_examples": 6,
+            "test_accuracy": 0.2222222222222222,
+            "test_loss": 1.1004565954208374,
+            "misclassified_examples": 7,
             "test_built_ratio_mae": NaN
         }
     ],

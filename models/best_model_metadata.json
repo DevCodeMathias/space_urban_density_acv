@@ -6,7 +6,7 @@
         "media",
         "alta"
     ],
-    "test_accuracy": 0.7777777777777778,
+    "test_accuracy": 0.8888888888888888,
     "best_validation_accuracy": 0.8888888888888888,
     "device_used": "cpu"
 }

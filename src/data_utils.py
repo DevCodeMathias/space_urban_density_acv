@@ -89,7 +89,15 @@ REAL_SATELLITE_EXAMPLES = (
     RealSatelliteExample("baixa", "patagonia", -50.9423, -73.4068, 9000, "area_natural", "Area aberta e pouco ocupada."),
     RealSatelliteExample("baixa", "cerrado", -14.2350, -51.9253, 9000, "area_natural", "Paisagem natural dominante."),
     RealSatelliteExample("baixa", "alaska_forest", 61.2181, -149.9003, 9000, "floresta", "Predominio natural."),
-    RealSatelliteExample("baixa", "bolivia_rural", -17.7833, -63.1821, 9000, "rural", "Area rural extensa com ocupacao esparsa."),
+    RealSatelliteExample(
+        "media",
+        "santa_cruz_bolivia",
+        -17.7833,
+        -63.1821,
+        9000,
+        "urbano_misto",
+        "Area urbana extensa de Santa Cruz de la Sierra.",
+    ),
     RealSatelliteExample("baixa", "sahara", 23.4162, 25.6628, 9000, "deserto", "Area desertica sem ocupacao urbana relevante."),
     RealSatelliteExample("baixa", "serengeti", -2.3333, 34.8333, 9000, "area_natural", "Paisagem natural aberta."),
     RealSatelliteExample("baixa", "andes_rural", -13.1631, -72.5450, 9000, "rural_montanhoso", "Regiao montanhosa de baixa ocupacao."),
@@ -115,6 +123,12 @@ def ensure_project_dirs() -> None:
 
 def prepare_dataset() -> pd.DataFrame:
     ensure_project_dirs()
+    existing_splits = {}
+    if MANIFEST_PATH.exists():
+        existing_manifest = pd.read_csv(MANIFEST_PATH)
+        if {"name", "split"}.issubset(existing_manifest.columns):
+            existing_splits = dict(zip(existing_manifest["name"], existing_manifest["split"]))
+
     rows = []
     for example in REAL_SATELLITE_EXAMPLES:
         file_name = f"{example.name}_{REAL_DATASET_DATE}.png"
@@ -158,24 +172,28 @@ def prepare_dataset() -> pd.DataFrame:
 
     metadata = pd.DataFrame(rows)
 
-    train_frame, temp_frame = train_test_split(
-        metadata,
-        test_size=0.40,
-        random_state=RANDOM_SEED,
-        stratify=metadata[LABEL_COLUMN],
-    )
-    validation_frame, test_frame = train_test_split(
-        temp_frame,
-        test_size=0.50,
-        random_state=RANDOM_SEED,
-        stratify=temp_frame[LABEL_COLUMN],
-    )
+    if set(metadata["name"]).issubset(existing_splits):
+        metadata["split"] = metadata["name"].map(existing_splits)
+        manifest = metadata
+    else:
+        train_frame, temp_frame = train_test_split(
+            metadata,
+            test_size=0.40,
+            random_state=RANDOM_SEED,
+            stratify=metadata[LABEL_COLUMN],
+        )
+        validation_frame, test_frame = train_test_split(
+            temp_frame,
+            test_size=0.50,
+            random_state=RANDOM_SEED,
+            stratify=temp_frame[LABEL_COLUMN],
+        )
 
-    train_frame = train_frame.assign(split="train")
-    validation_frame = validation_frame.assign(split="validation")
-    test_frame = test_frame.assign(split="test")
+        train_frame = train_frame.assign(split="train")
+        validation_frame = validation_frame.assign(split="validation")
+        test_frame = test_frame.assign(split="test")
+        manifest = pd.concat([train_frame, validation_frame, test_frame], ignore_index=True)
 
-    manifest = pd.concat([train_frame, validation_frame, test_frame], ignore_index=True)
     manifest.to_csv(MANIFEST_PATH, index=False)
 
     for split_name, split_frame in manifest.groupby("split"):

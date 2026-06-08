@@ -5,7 +5,7 @@
     "best_validation_accuracy": 0.3333333333333333,
     "final_train_accuracy": 0.9259259259259259,
     "final_validation_accuracy": 0.3333333333333333,
-    "test_accuracy": 0.3333333333333333,
-    "test_loss": 1.0975435972213745,
-    "misclassified_examples": 6
+    "test_accuracy": 0.2222222222222222,
+    "test_loss": 1.1004565954208374,
+    "misclassified_examples": 7
 }

@@ -1,7 +1,7 @@
 split,visual_density_class,images
 test,alta,3
-test,baixa,3
-test,media,3
+test,baixa,2
+test,media,4
 train,alta,9
 train,baixa,9
 train,media,9

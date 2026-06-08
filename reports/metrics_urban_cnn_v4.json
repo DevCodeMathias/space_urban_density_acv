@@ -5,8 +5,8 @@
     "best_validation_accuracy": 0.4444444444444444,
     "final_train_accuracy": 0.9629629629629629,
     "final_validation_accuracy": 0.3333333333333333,
-    "test_accuracy": 0.4444444444444444,
-    "test_loss": 1.0837063789367676,
-    "misclassified_examples": 5,
-    "test_built_ratio_mae": 0.23094908893108368
+    "test_accuracy": 0.5555555555555556,
+    "test_loss": 1.0376791954040527,
+    "misclassified_examples": 4,
+    "test_built_ratio_mae": 0.19526498019695282
 }

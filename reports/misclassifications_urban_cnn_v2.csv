@@ -1,6 +1,7 @@
 file_name,true_label,predicted_label,confidence,image_path
 sao_paulo_paulista_2025-05-01.png,alta,baixa,0.33857211470603943,data\raw_images\sao_paulo_paulista_2025-05-01.png
 porto_alegre_2025-05-01.png,media,baixa,0.33848729729652405,data\raw_images\porto_alegre_2025-05-01.png
+santa_cruz_bolivia_2025-05-01.png,media,baixa,0.3384731113910675,data\raw_images\santa_cruz_bolivia_2025-05-01.png
 fortaleza_2025-05-01.png,media,baixa,0.33819976449012756,data\raw_images\fortaleza_2025-05-01.png
 buenos_aires_microcentro_2025-05-01.png,alta,baixa,0.33807238936424255,data\raw_images\buenos_aires_microcentro_2025-05-01.png
 melbourne_2025-05-01.png,media,baixa,0.33805152773857117,data\raw_images\melbourne_2025-05-01.png
