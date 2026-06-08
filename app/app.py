@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import hashlib
 import io
 import sys
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
+from uuid import uuid4
 
 import pandas as pd
 import streamlit as st
@@ -43,9 +45,109 @@ def resolve_project_path(relative_path: str) -> Path:
     return PROJECT_ROOT.joinpath(*normalized_path.split("/"))
 
 
-def run_prediction(image: Image.Image, prediction_override=None) -> None:
+def record_analysis(prediction: dict, source: str, reference: str, details: dict | None = None) -> None:
+    probabilities = prediction["probabilities"]
+    record = {
+        "data_hora_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
+        "origem": source,
+        "referencia": reference,
+        "classe_prevista": prediction["predicted_class"],
+        "confianca": max(probabilities.values()),
+        "prob_baixa": probabilities.get("baixa", 0.0),
+        "prob_media": probabilities.get("media", 0.0),
+        "prob_alta": probabilities.get("alta", 0.0),
+        "modelo": prediction["model_name"],
+        "latitude": "",
+        "longitude": "",
+        "data_imagem": "",
+        "area_metros": "",
+    }
+    record.update(details or {})
+    st.session_state.analysis_history.append(record)
+
+
+def build_analysis_report(history: list[dict]) -> bytes:
+    report_frame = pd.DataFrame(history)
+    report_frame["confianca"] = report_frame["confianca"].map(lambda value: f"{value:.2%}")
+    for column in ("prob_baixa", "prob_media", "prob_alta"):
+        report_frame[column] = report_frame[column].map(lambda value: f"{value:.2%}")
+
+    display_names = {
+        "data_hora_utc": "Data/hora (UTC)",
+        "origem": "Origem",
+        "referencia": "Referencia",
+        "classe_prevista": "Classe prevista",
+        "confianca": "Confianca",
+        "prob_baixa": "Prob. baixa",
+        "prob_media": "Prob. media",
+        "prob_alta": "Prob. alta",
+        "modelo": "Modelo",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "data_imagem": "Data da imagem",
+        "area_metros": "Area (m)",
+    }
+    report_frame = report_frame.rename(columns=display_names)
+    class_summary = (
+        pd.DataFrame(history)["classe_prevista"]
+        .value_counts()
+        .rename_axis("Classe")
+        .reset_index(name="Quantidade")
+    )
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+
+    html = f"""<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Relatorio de analises de densidade urbana</title>
+  <style>
+    body {{ font-family: Arial, sans-serif; margin: 32px; color: #172033; }}
+    h1, h2 {{ color: #102a43; }}
+    .summary {{ display: flex; gap: 16px; margin: 20px 0; }}
+    .card {{ background: #eef4f8; border-radius: 8px; padding: 14px 20px; }}
+    table {{ border-collapse: collapse; width: 100%; margin: 12px 0 28px; }}
+    th, td {{ border: 1px solid #bcccdc; padding: 8px; text-align: left; }}
+    th {{ background: #d9e2ec; }}
+    tr:nth-child(even) {{ background: #f7f9fb; }}
+    .footer {{ color: #627d98; font-size: 12px; }}
+  </style>
+</head>
+<body>
+  <h1>Relatorio das ultimas analises</h1>
+  <p>Classificacao de densidade urbana por imagem de satelite.</p>
+  <div class="summary">
+    <div class="card"><strong>Total de analises</strong><br>{len(history)}</div>
+    <div class="card"><strong>Gerado em</strong><br>{generated_at}</div>
+  </div>
+  <h2>Resumo por classe</h2>
+  {class_summary.to_html(index=False, border=0, escape=True)}
+  <h2>Detalhamento</h2>
+  {report_frame.to_html(index=False, border=0, escape=True)}
+  <p class="footer">Relatorio gerado pelo projeto ACV - Densidade Urbana.</p>
+</body>
+</html>
+"""
+    return html.encode("utf-8")
+
+
+def run_prediction(
+    image: Image.Image,
+    analysis_key: str,
+    source: str,
+    reference: str,
+    details: dict | None = None,
+    prediction_override=None,
+) -> None:
     st.image(image, caption="Imagem analisada", use_column_width=True)
-    prediction = prediction_override or predict_image(image)
+    prediction_cache = st.session_state.prediction_cache
+    if analysis_key in prediction_cache:
+        prediction = prediction_cache[analysis_key]
+    else:
+        prediction = prediction_override or predict_image(image)
+        prediction_cache[analysis_key] = prediction
+        record_analysis(prediction, source, reference, details)
+
     st.success(
         f"Classe prevista: {prediction['predicted_class'].upper()} | Modelo: {prediction['model_name']}"
     )
@@ -56,6 +158,11 @@ st.title("Applied Computer Vision - Densidade Urbana por Imagem de Satelite")
 st.caption(
     "Classificacao de densidade urbana visual com visao computacional, incluindo teste com imagens reais de satelite."
 )
+
+if "analysis_history" not in st.session_state:
+    st.session_state.analysis_history = []
+if "prediction_cache" not in st.session_state:
+    st.session_state.prediction_cache = {}
 
 if not MANIFEST_PATH.exists() or not COMPARISON_PATH.exists():
     st.error("Artefatos nao encontrados. Rode primeiro `python src/prepare_dataset.py` e `python src/train.py`.")
@@ -80,7 +187,14 @@ with left_column:
     uploaded_file = st.file_uploader("Envie uma imagem PNG/JPG", type=["png", "jpg", "jpeg"])
 
     if uploaded_file:
-        run_prediction(Image.open(uploaded_file))
+        uploaded_bytes = uploaded_file.getvalue()
+        upload_hash = hashlib.sha256(uploaded_bytes).hexdigest()
+        run_prediction(
+            Image.open(io.BytesIO(uploaded_bytes)),
+            analysis_key=f"upload:{upload_hash}",
+            source="Upload",
+            reference=uploaded_file.name,
+        )
     else:
         st.info("Envie uma imagem ou use a busca de satelite logo abaixo para rodar a inferencia do melhor modelo.")
 
@@ -134,7 +248,18 @@ with left_column:
             st.caption(f"Fonte ArcGIS World Imagery: {source_url}")
             if saved_path is not None:
                 st.caption(f"Imagem salva em: {saved_path}")
-            run_prediction(fetched_image)
+            run_prediction(
+                fetched_image,
+                analysis_key=f"satellite:{uuid4()}",
+                source="ArcGIS World Imagery",
+                reference=request_name,
+                details={
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "data_imagem": image_date.isoformat(),
+                    "area_metros": bbox_size_meters,
+                },
+            )
         except Exception as error:
             st.error(f"Nao foi possivel baixar a imagem real de satelite: {error}")
 
@@ -144,6 +269,24 @@ with right_column:
     st.metric("Melhor modelo", best_model_name)
     st.metric("Melhor acuracia de validacao", f"{metadata['best_validation_accuracy'] * 100:.2f}%")
     st.metric("Acuracia em teste", f"{metadata['test_accuracy'] * 100:.2f}%")
+
+st.subheader("Ultimas analises")
+if st.session_state.analysis_history:
+    history_frame = pd.DataFrame(st.session_state.analysis_history)
+    history_preview = history_frame[
+        ["data_hora_utc", "origem", "referencia", "classe_prevista", "confianca", "modelo"]
+    ].copy()
+    history_preview["confianca"] = history_preview["confianca"].map(lambda value: f"{value:.2%}")
+    st.dataframe(history_preview.iloc[::-1], use_container_width=True, hide_index=True)
+    st.download_button(
+        "Exportar relatorio das analises",
+        data=build_analysis_report(st.session_state.analysis_history),
+        file_name=f"relatorio_analises_{date.today().isoformat()}.html",
+        mime="text/html",
+        use_container_width=True,
+    )
+else:
+    st.info("As analises feitas nesta sessao aparecerao aqui para exportacao.")
 
 st.subheader("Amostras do dataset")
 sample_rows = manifest.groupby("visual_density_class").head(2).reset_index(drop=True)
