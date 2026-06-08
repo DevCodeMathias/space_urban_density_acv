@@ -38,6 +38,11 @@ def load_comparison():
     return pd.read_csv(COMPARISON_PATH)
 
 
+def resolve_project_path(relative_path: str) -> Path:
+    normalized_path = str(relative_path).replace("\\", "/")
+    return PROJECT_ROOT.joinpath(*normalized_path.split("/"))
+
+
 def run_prediction(image: Image.Image, prediction_override=None) -> None:
     st.image(image, caption="Imagem analisada", use_column_width=True)
     prediction = prediction_override or predict_image(image)
@@ -145,12 +150,12 @@ sample_rows = manifest.groupby("visual_density_class").head(2).reset_index(drop=
 for start_index in range(0, len(sample_rows), 3):
     sample_columns = st.columns(3)
     for column, (_, row) in zip(sample_columns, sample_rows.iloc[start_index:start_index + 3].iterrows()):
-        image_path = PROJECT_ROOT / row["local_image_path"]
-        column.image(
-            str(image_path),
-            caption=f"{row['visual_density_class']} | {row['zone_type']}",
-            use_column_width=True,
-        )
+        image_path = resolve_project_path(row["local_image_path"])
+        caption = f"{row['visual_density_class']} | {row['zone_type']}"
+        if image_path.is_file():
+            column.image(str(image_path), caption=caption, use_column_width=True)
+        else:
+            column.warning(f"Imagem indisponivel: {caption}")
 
 visual_left, visual_right = st.columns(2)
 with visual_left:
