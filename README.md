@@ -1,6 +1,22 @@
-# Applied Computer Vision - Urban Density from Satellite Imagery
+# UrbanLens Mobility
 
-Projeto de Visao Computacional aplicado a Industria Espacial e conectado ao tema da Global Solution da equipe: monitoramento de densidade urbana a partir de imagens de satelite.
+Produto de inteligencia territorial que usa Visao Computacional e imagens de satelite para apoiar a priorizacao de estudos e acoes de mobilidade urbana.
+
+## Proposta de valor
+
+Cidades pouco densas podem se espalhar, aumentar distancias e elevar o custo do transporte e da infraestrutura. Cidades muito densas, quando crescem sem planejamento, podem saturar o transporte coletivo, as calcadas e os servicos locais.
+
+O UrbanLens Mobility transforma a classificacao visual de densidade em uma triagem para equipes de planejamento:
+
+- identifica possiveis sinais de espraiamento, equilibrio ou pressao territorial
+- organiza riscos de mobilidade que precisam ser investigados
+- sugere um plano de acao inicial para cada perfil
+- indica dados locais necessarios para validar a hipotese
+- gera um relatorio executivo com o historico das analises
+
+O foco inicial e **mobilidade urbana**, pois a densidade visual observada por satelite se conecta diretamente a distancias, cobertura de transporte, caminhabilidade e capacidade da rede. Uma solucao de acesso a moradia exigiria dados adicionais de renda, preco, vacancia, deficit habitacional e zoneamento.
+
+> O produto e uma ferramenta de triagem. Densidade visual nao equivale a densidade populacional e nao substitui dados de transporte, uso do solo ou pesquisa de campo.
 
 ## Integrantes
 
