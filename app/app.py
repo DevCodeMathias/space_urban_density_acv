@@ -283,10 +283,20 @@ if st.session_state.analysis_history:
         data=build_analysis_report(st.session_state.analysis_history),
         file_name=f"relatorio_analises_{date.today().isoformat()}.html",
         mime="text/html",
+        type="primary",
         use_container_width=True,
     )
 else:
     st.info("As analises feitas nesta sessao aparecerao aqui para exportacao.")
+    st.download_button(
+        "Exportar relatorio das analises",
+        data=b"",
+        file_name=f"relatorio_analises_{date.today().isoformat()}.html",
+        mime="text/html",
+        disabled=True,
+        use_container_width=True,
+    )
+    st.caption("Analise uma imagem para liberar o download do relatorio.")
 
 st.subheader("Amostras do dataset")
 sample_rows = manifest.groupby("visual_density_class").head(2).reset_index(drop=True)
