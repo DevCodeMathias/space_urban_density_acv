@@ -256,6 +256,10 @@ Arquivo principal:
 
 - `app/app.py`
 
+Aplicacao online:
+
+- https://spaceurbandensityacv-4sf4bcwc4gpxrf7mv9zdor.streamlit.app/
+
 Execucao:
 
 ```bash
