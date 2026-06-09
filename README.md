@@ -6,6 +6,8 @@ Produto de inteligencia territorial que usa Visao Computacional e imagens de sat
 
 Cidades pouco densas podem se espalhar, aumentar distancias e elevar o custo do transporte e da infraestrutura. Cidades muito densas, quando crescem sem planejamento, podem saturar o transporte coletivo, as calcadas e os servicos locais.
 
+LINK YOUTUBE (DEMO): https://www.youtube.com/watch?v=NMRDLqb2y1U
+
 O UrbanLens Mobility transforma a classificacao visual de densidade em uma triagem para equipes de planejamento:
 
 - identifica possiveis sinais de espraiamento, equilibrio ou pressao territorial
