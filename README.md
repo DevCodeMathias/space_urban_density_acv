@@ -20,10 +20,8 @@ O foco inicial e **mobilidade urbana**, pois a densidade visual observada por sa
 
 ## Integrantes
 
-- Integrante 1 - preencher nome
-- Integrante 2 - preencher nome
-- Integrante 3 - preencher nome
-- Integrante 4 - preencher nome
+- Laura Mathias
+- Danilo Urze
 
 ## 1. Definicao do problema de visao computacional
 
@@ -115,7 +113,8 @@ Estatisticas salvas em:
 
 ## 3. Treinamento de CNNs do zero
 
-Foram implementadas duas arquiteturas proprias, **sem uso de modelos pre-treinados**.
+Foram implementadas quatro arquiteturas proprias, **sem uso de modelos
+pre-treinados**.
 
 ### Modelo 1 - `UrbanDensityCNNV1`
 
@@ -145,6 +144,33 @@ Parametros treinaveis:
 
 - `300.579`
 
+### Modelo 3 - `UrbanDensityCNNV3`
+
+Arquitetura residual composta por:
+
+- stem convolucional com `BatchNorm`
+- 7 blocos residuais
+- canais de 32, 64, 128 e 192
+- `AdaptiveAvgPool`
+- classificador com `Dropout`
+
+Parametros treinaveis:
+
+- `1.944.867`
+
+### Modelo 4 - `UrbanDensityCNNV4`
+
+Arquitetura residual multitarefa composta por:
+
+- backbone residual
+- embedding visual de 160 dimensoes
+- cabeca auxiliar para proporcao de area construida
+- classificador que combina embedding e estimativa auxiliar
+
+Parametros treinaveis:
+
+- `1.982.148`
+
 ### Estrategia de treinamento
 
 - `CrossEntropyLoss`
@@ -155,6 +181,7 @@ Parametros treinaveis:
 
 Arquivos de arquitetura:
 
+- `ARQUITETURA_MODELOS.md`
 - `reports/model_architectures.json`
 - `reports/model_architectures.txt`
 - `src/models.py`
@@ -191,27 +218,28 @@ Arquivos gerados:
 - `reports/summary.json`
 - `models/urban_cnn_v1.pt`
 - `models/urban_cnn_v2.pt`
+- `models/urban_cnn_v3.pt`
+- `models/urban_cnn_v4.pt`
 - `models/best_model.pt`
 - `models/best_model_metadata.json`
 
 ### Avaliacao qualitativa
 
-Tambem foram gerados:
+Tambem foram gerados para as quatro CNNs:
 
-- matrizes de confusao para os dois modelos
+- matrizes de confusao
 - exemplos de imagens classificadas incorretamente
 - classification report por classe
 
-Arquivos:
+Exemplos de arquivos do melhor modelo:
 
 - `reports/confusion_matrix_urban_cnn_v1.png`
-- `reports/confusion_matrix_urban_cnn_v2.png`
 - `reports/error_examples_urban_cnn_v1.png`
-- `reports/error_examples_urban_cnn_v2.png`
 - `reports/misclassifications_urban_cnn_v1.csv`
-- `reports/misclassifications_urban_cnn_v2.csv`
 - `reports/classification_report_urban_cnn_v1.json`
-- `reports/classification_report_urban_cnn_v2.json`
+
+Os arquivos equivalentes das versoes V2, V3 e V4 seguem o mesmo padrao de
+nomenclatura em `reports/`.
 
 ## 5. Comparacao entre arquiteturas
 
@@ -268,11 +296,14 @@ A demonstracao funcional foi implementada em **Streamlit**.
 
 A interface permite:
 
-- enviar uma nova imagem
-- obter a classe prevista
-- visualizar probabilidades por classe
-- consultar a comparacao dos modelos
-- ver matriz de confusao e exemplos de erros
+- enviar uma imagem aerea ou de satelite
+- buscar um territorio por coordenadas
+- informar a oferta atual de transporte coletivo
+- obter classe, confianca e prioridade territorial
+- consultar um plano de acao inicial
+- manter um historico das analises
+- exportar um relatorio executivo
+- consultar metodologia, comparacao, matriz de confusao e exemplos de erros
 
 Arquivo principal:
 
@@ -290,14 +321,25 @@ streamlit run app/app.py
 
 ## 8. Notebook utilizado
 
-O projeto inclui um notebook em formato `.ipynb` com o fluxo de apoio ao treinamento:
+O projeto inclui um notebook em formato `.ipynb` com:
 
 - `notebooks/acv_training.ipynb`
+
+O notebook apresenta:
+
+- configuracao do ambiente
+- preparacao opcional do dataset
+- distribuicao e amostras das classes
+- construcao e contagem de parametros das quatro CNNs
+- treinamento opcional pelo script oficial
+- comparacao dos modelos e artefatos de avaliacao
+- inferencia com o melhor modelo
 
 ## 9. Estrutura do projeto
 
 ```text
 space_urban_density_acv/
+|-- ARQUITETURA_MODELOS.md
 |-- app/
 |   |-- app.py
 |-- data/
@@ -307,6 +349,8 @@ space_urban_density_acv/
 |-- models/
 |   |-- urban_cnn_v1.pt
 |   |-- urban_cnn_v2.pt
+|   |-- urban_cnn_v3.pt
+|   |-- urban_cnn_v4.pt
 |   |-- best_model.pt
 |   |-- best_model_metadata.json
 |-- notebooks/
@@ -318,17 +362,16 @@ space_urban_density_acv/
 |   |-- model_architectures.txt
 |   |-- model_comparison.csv
 |   |-- confusion_matrix_urban_cnn_v1.png
-|   |-- confusion_matrix_urban_cnn_v2.png
 |   |-- training_curves_urban_cnn_v1.png
-|   |-- training_curves_urban_cnn_v2.png
 |   |-- error_examples_urban_cnn_v1.png
-|   |-- error_examples_urban_cnn_v2.png
 |-- src/
 |   |-- config.py
 |   |-- data_utils.py
 |   |-- inference.py
 |   |-- models.py
 |   |-- prepare_dataset.py
+|   |-- satellite_imagery.py
+|   |-- stacking.py
 |   |-- train.py
 |-- requirements.txt
 |-- README.md
@@ -374,7 +417,19 @@ python src/prepare_dataset.py
 python src/train.py
 ```
 
-### 10.6 Rodar a demonstracao
+### 10.6 Abrir o notebook
+
+Com Jupyter ou JupyterLab instalado:
+
+```bash
+python -m pip install jupyterlab
+jupyter lab notebooks/acv_training.ipynb
+```
+
+As flags `RUN_DATA_PREPARATION` e `RUN_TRAINING` ficam desativadas por padrao
+para permitir a exploracao dos artefatos ja treinados sem refazer o processo.
+
+### 10.7 Rodar a demonstracao
 
 ```bash
 streamlit run app/app.py
@@ -382,13 +437,16 @@ streamlit run app/app.py
 
 ## 11. Itens exigidos pelo enunciado
 
-Este repositorio contem:
-
-- notebook `.ipynb`
-- scripts Python
-- arquivo com a arquitetura dos modelos
-- pesos do melhor modelo
-- imagens do dataset
-- `requirements.txt`
-- aplicacao funcional
-- README com instrucoes
+| Item exigido | Arquivo ou pasta |
+|---|---|
+| Notebook de treinamento | `notebooks/acv_training.ipynb` |
+| Scripts Python | `src/*.py` |
+| Arquitetura dos modelos | `ARQUITETURA_MODELOS.md`, `src/models.py` e `reports/model_architectures.*` |
+| Pesos do melhor modelo | `models/best_model.pt` |
+| Metadados do melhor modelo | `models/best_model_metadata.json` |
+| Imagens de amostra do dataset | `data/raw_images/` |
+| Manifesto e splits | `data/manifest.csv` e `data/splits/` |
+| Dependencias | `requirements.txt` |
+| Aplicacao de demonstracao | `app/app.py` |
+| Instrucoes de instalacao e execucao | `README.md` |
+| Integrantes do grupo | secao `Integrantes` deste README |
